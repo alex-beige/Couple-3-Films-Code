@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Rotating rings
     rotating: {
-      outerRingDuration: 400, // seconds for full rotation
+      outerRingDuration: 300, // seconds for full rotation
       innerRingDuration: 650, // seconds for full rotation
       rampUpTime: 3, // seconds to reach full speed
     },
