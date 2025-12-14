@@ -1,4 +1,4 @@
-console.log("Party Time");
+console.log("Party Time 2");
 if (history.scrollRestoration) {
   history.scrollRestoration = "manual";
 }
