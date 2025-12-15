@@ -793,12 +793,12 @@ tl_calloutSection.from($(calloutTitle).add(calloutSplit.lines),{y:24, autoAlpha:
     scrollTrigger: {
       trigger: '#cta-section',
       start: "top 15%", 
-      // pin: true,
-      // end: "+=150%",
-      // scrub: 1.5,
+      pin: true,
+      end: "+=150%",
+      scrub: 1.5,
       //invalidateOnRefresh: true,
       //markers: true,
-      toggleActions: "play none none none",
+      // toggleActions: "play none none none",
       onEnter: () => {
         tl_rotateCtaCircles.play();
         console.log("cta enter");
