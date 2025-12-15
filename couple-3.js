@@ -718,12 +718,12 @@ let masterTimeline;
       gsap.to(window.p5DotGrid.colors, {
         base: "#F2EFED",
         hover: "#fbfaf9",
-        //background: "#EF5E3D",
+        
         duration: 0.8,
         ease: "power2.inOut",
       });
       gsap.to('.bg-overlay', {
-        backgroundColor: "#ef5e3d",
+        backgroundColor: "#c7c7c7",
         duration: 0.8,
         ease: "power2.inOut",
       });
@@ -732,7 +732,7 @@ let masterTimeline;
       gsap.to(window.p5DotGrid.colors, {
         base: CONFIG.dotColors.baseDefault,
         hover: CONFIG.dotColors.hoverDefault,
-        //background: "#0a0a0a",
+        
         duration: 0.72,
         ease: "power2.inOut",
       });
@@ -746,7 +746,7 @@ let masterTimeline;
       gsap.to(window.p5DotGrid.colors, {
         base: CONFIG.dotColors.baseDefault,
         hover: CONFIG.dotColors.hoverDefault,
-        //background: "#0a0a0a",
+        
         duration: 0.72,
         ease: "power2.inOut",
       });
@@ -760,12 +760,12 @@ let masterTimeline;
       gsap.to(window.p5DotGrid.colors, {
         base: "#F2EFED",
         hover: "#fbfaf9",
-        //background: "#EF5E3D",
+        
         duration: 0.8,
         ease: "power2.inOut",
       });
       gsap.to('.bg-overlay', {
-        backgroundColor: "#ef5e3d",
+        backgroundColor: "#c7c7c7",
         duration: 0.8,
         ease: "power2.inOut",
       });
