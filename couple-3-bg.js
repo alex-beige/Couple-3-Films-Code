@@ -15,7 +15,7 @@ console.log("AB Web Dev");
   const SPACING = 60;
 
   const BASE = "hsla(0, 0%, 24%, 1.00)"; // Default dot color
-  const HOVER = "hsla(0, 0%, 40%, 1.00)"; // Dot color near cursor
+  const HOVER = "hsla(0, 0%, 48%, 1.00)"; // Dot color near cursor
 
   const DOT_RADIUS = DOT_DIAM / 2;
   const EFFECT_RADIUS = SPACING * 3; // ~3 dots in all directions
