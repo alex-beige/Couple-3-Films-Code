@@ -1,4 +1,4 @@
-console.log("Party Time 2.1");
+console.log("Party Time 2.2");
 
 // ====================================
 // ANIMATING P5.JS BACKGROUND DOTS - QUICK REFERENCE
