@@ -60,7 +60,8 @@ document.addEventListener("DOMContentLoaded", function () {
       arrowLineEase: "power3.out",
       arrowHeadEase: "power1.out"
     };
-gsap.set(".letter",{yPercent:5})
+gsap.set(".letter:not(#letter-3)",{yPercent:-5})
+gsap.set(".letter#letter-3",{yPercent:5})
 
 let masterTimeline;
 
