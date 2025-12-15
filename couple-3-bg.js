@@ -51,6 +51,13 @@ console.log("AB Web Dev");
     let mx = null; // Mouse X position
     let my = null; // Mouse Y position
 
+    // Animatable color state (can be controlled by GSAP)
+    let currentColors = {
+      base: BASE,
+      hover: HOVER,
+      background: null, // null = transparent, set to color string to show background
+    };
+
     /**
      * Rebuilds the dot grid based on current window size
      * Called on setup and window resize
@@ -152,15 +159,18 @@ console.log("AB Web Dev");
      * Renders dots with color based on distance from cursor
      */
     p.draw = () => {
-      // Clear canvas each frame (transparent background)
-      // To add a solid background, uncomment: p.background("#0b0b0f");
-      p.clear();
+      // Handle background color
+      if (currentColors.background) {
+        p.background(currentColors.background);
+      } else {
+        p.clear(); // Transparent background
+      }
 
       const hasMouse = mx !== null && my !== null;
 
       // Fast path: no mouse interaction, draw all dots in base color
       if (!hasMouse) {
-        p.fill(BASE);
+        p.fill(currentColors.base);
         for (let i = 0; i < points.length; i++) {
           const pt = points[i];
           p.circle(pt.x, pt.y, DOT_DIAM);
@@ -177,9 +187,50 @@ console.log("AB Web Dev");
         const distanceSquared = dx * dx + dy * dy;
 
         // Change color if within effect radius
-        p.fill(distanceSquared <= EFFECT_RADIUS_SQ ? HOVER : BASE);
+        p.fill(distanceSquared <= EFFECT_RADIUS_SQ ? currentColors.hover : currentColors.base);
         p.circle(pt.x, pt.y, DOT_DIAM);
       }
+    };
+
+    // ====================================
+    // PUBLIC API - Expose to global scope for GSAP
+    // ====================================
+    // Store reference to color object so GSAP can animate it
+    window.p5DotGrid = {
+      colors: currentColors,
+
+      /**
+       * Set base dot color
+       * @param {string} color - Any valid CSS color string
+       */
+      setBaseColor(color) {
+        currentColors.base = color;
+      },
+
+      /**
+       * Set hover dot color
+       * @param {string} color - Any valid CSS color string
+       */
+      setHoverColor(color) {
+        currentColors.hover = color;
+      },
+
+      /**
+       * Set background color
+       * @param {string} color - Any valid CSS color string, or null for transparent
+       */
+      setBackgroundColor(color) {
+        currentColors.background = color;
+      },
+
+      /**
+       * Reset all colors to defaults
+       */
+      resetColors() {
+        currentColors.base = BASE;
+        currentColors.hover = HOVER;
+        currentColors.background = null;
+      },
     };
   };
 

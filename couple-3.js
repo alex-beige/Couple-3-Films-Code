@@ -1,5 +1,26 @@
 console.log("Party Time 2");
 
+// ====================================
+// ANIMATING P5.JS BACKGROUND DOTS - QUICK REFERENCE
+// ====================================
+// The p5.js dot grid (couple-3-bg.js) exposes a global API: window.p5DotGrid
+//
+// Available properties & methods:
+//   window.p5DotGrid.colors.base       - Base dot color (string)
+//   window.p5DotGrid.colors.hover      - Hover dot color (string)
+//   window.p5DotGrid.colors.background - Canvas background color (string or null)
+//   window.p5DotGrid.setBaseColor(color)
+//   window.p5DotGrid.setHoverColor(color)
+//   window.p5DotGrid.setBackgroundColor(color)
+//   window.p5DotGrid.resetColors()
+//
+// GSAP Usage:
+//   gsap.to(window.p5DotGrid.colors, { base: "#ffffff", duration: 2 })
+//   gsap.to(window.p5DotGrid.colors, { background: "#000000", duration: 1 })
+//
+// See examples at the bottom of this file (search for "BACKGROUND DOT ANIMATIONS")
+// ====================================
+
 // Prevent browser from restoring scroll position on page reload
 // This ensures animations always start from the top
 if (history.scrollRestoration) {
@@ -49,6 +70,17 @@ document.addEventListener("DOMContentLoaded", function () {
       pinDuration: "200%",
       scrubSmooth: 1.5,
       videoScaleRatio: 0.85, // 85% of viewport
+    },
+
+    // Background dot colors (for p5.js canvas)
+    // These can be animated during the intro or scroll sequences
+    dotColors: {
+      baseDefault: "hsla(0, 0%, 20%, 1.00)",
+      hoverDefault: "hsla(0, 0%, 25%, 1.00)",
+      // Example color transitions you might want:
+      // baseLight: "hsla(0, 0%, 90%, 1.00)",
+      // hoverLight: "hsla(0, 0%, 95%, 1.00)",
+      // backgroundSolid: "#0b0b0f",
     },
   };
 
@@ -232,6 +264,54 @@ document.addEventListener("DOMContentLoaded", function () {
     );
 
   // ====================================
+  // BACKGROUND DOT ANIMATIONS (Optional)
+  // ====================================
+  // Uncomment and customize these examples to animate the p5.js background dots
+  // The p5DotGrid API is exposed globally from couple-3-bg.js
+
+  /*
+  // Example 1: Animate dot colors during intro
+  tl_intro.to(
+    window.p5DotGrid.colors,
+    {
+      base: "hsla(0, 0%, 90%, 1.00)",  // Lighter dots
+      hover: "hsla(0, 0%, 95%, 1.00)", // Lighter hover
+      duration: 2,
+      ease: "power2.inOut",
+    },
+    "<" // Start with previous animation
+  );
+  */
+
+  /*
+  // Example 2: Add solid background color
+  tl_intro.to(
+    window.p5DotGrid.colors,
+    {
+      background: "#0b0b0f", // Dark solid background
+      duration: 1.5,
+      ease: "power2.out",
+    },
+    ">-1" // Overlap with previous
+  );
+  */
+
+  /*
+  // Example 3: Animate colors during scroll
+  tl_heroScroll.to(
+    window.p5DotGrid.colors,
+    {
+      base: "#ffffff",
+      hover: "#cccccc",
+      background: "#000000",
+      duration: 1,
+      ease: "none",
+    },
+    "<" // Start at beginning of scroll timeline
+  );
+  */
+
+  // ====================================
   // ROTATING RINGS TIMELINES
   // ====================================
   // These create continuous rotating animations that gradually speed up on page load
@@ -268,7 +348,7 @@ document.addEventListener("DOMContentLoaded", function () {
     .to(
       [".hero_content-wrap", ".hero_icon", ".nav_linkwrapper"],
       { autoAlpha: 0 },
-      "<" // Start at same time as previous
+      "<" 
     )
     // Center video wrapper in viewport
     .to(
@@ -293,5 +373,12 @@ document.addEventListener("DOMContentLoaded", function () {
         ease: "none",
       },
       ">0.3"
-    );
+    ).to(window.p5DotGrid.colors,
+    {
+      base: "#F2EFED",
+      hover: "#fbfaf9",
+      background: "#EF5E3D",
+      duration: 1,
+      ease: "none",
+    },"<");
 });
