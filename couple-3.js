@@ -792,7 +792,7 @@ tl_calloutSection.from($(calloutTitle).add(calloutSplit.lines),{y:24, autoAlpha:
   let tl_ctaAnimation = gsap.timeline({
     scrollTrigger: {
       trigger: '#cta-section',
-      start: "top 15%", 
+      start: "top top", 
       pin: true,
       end: "+=150%",
       scrub: 1.5,
