@@ -874,7 +874,7 @@ gsap.utils
       let tl_group = gsap.timeline({
         scrollTrigger: {
           trigger: group,
-          toggleActions: "play none none none",
+          toggleActions: "play none none reverse",
           start: "top 64%",
         },
       });
@@ -950,7 +950,7 @@ gsap.to('.bg-overlay',{backgroundColor:"#0a0a0a00", duration:0.8, ease:"power2.i
   .from([ctaCircles[0],ctaCircles[2]],{scale:0.8, autoAlpha:0, stagger:0.1, ease:"power2.out"}, "<0.2")
   .from([ctaCircles[1],ctaCircles[3]],{scale:1.1, autoAlpha:0, stagger:0.1, ease:"power2.out"}, "<0.1")
   .from($(ctaContactText).add(ctaContactSplit.chars),{y:12,autoAlpha:0, stagger:0.02, ease:"power3.out"}, "<0.2")
-  .from(ctaFrame,{scale:0.9, autoAlpha:0, ease:"power2.out"}, "<0.2")
+  .from(ctaFrame,{scale:0.9, autoAlpha:0, ease:"power2.out",onComplete: () => $(ctaButton).addClass("pointer-events-auto")}, "<0.2")
   .from({},{duration: 0.25}) // tiny pause to create a gap in the scrub
 
 let tl_rotateCtaCircles = gsap.timeline({repeat:-1,paused:true});
