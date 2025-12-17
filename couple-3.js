@@ -661,8 +661,8 @@ let masterTimeline;
     
     ScrollTrigger.create({
       trigger: section,
-      start: "top 50%",
-      end: "bottom 50%",
+      start: "top 54%",
+      end: "bottom 54%",
       onEnter: () => {
         $('.work_category-item').removeClass(ACTIVE_CLASS);
         $matchingNav.addClass(ACTIVE_CLASS);
@@ -886,7 +886,7 @@ gsap.utils
             duration:1,
             autoAlpha: 0,
             ease: "power3.out",
-            stagger: 0.1,
+            stagger: 0.08,
           }
         )
         .from(
