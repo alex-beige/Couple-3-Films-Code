@@ -580,15 +580,7 @@ let masterTimeline;
       { yPercent:-8,opacity: 0,duration: 0.16, immediateRender: false,ease: "power2.out" },
       "<"
     )
-    // Return brand to center position
-    // Animate from left (x: 0) back to center (x: brandCenterX)
-    .to(".hero_brand-anim-wrap-parent", {
-      //invalidateOnRefresh: true,
-      x: brandCenterX,
-      immediateRender: false,
-      ease: "power2.inOut",
-      //overwrite: 'auto'
-    },"<0.1")
+    
     // Ensure original is visible before Flip setup
     .add(() => {
       gsap.set(elements.navBrandLinkOriginal, { autoAlpha: 1 });
@@ -606,6 +598,15 @@ let masterTimeline;
       },
       "<" // Start immediately after setup
     )
+    // Return brand to center position
+    // Animate from left (x: 0) back to center (x: brandCenterX)
+    .to(".hero_brand-anim-wrap-parent", {
+      //invalidateOnRefresh: true,
+      x: brandCenterX,
+      immediateRender: false,
+      ease: "power2.inOut",
+      //overwrite: 'auto'
+    },"<0.1")
     // Center video wrapper in viewport
     .to(
       elements.videoWrapper,
