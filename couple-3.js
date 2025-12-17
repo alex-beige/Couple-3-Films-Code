@@ -796,7 +796,7 @@ gsap.utils
         scrollTrigger: {
           trigger: group,
           toggleActions: "play none none none",
-          start: "top 64%",
+          start: "top 54%",
         },
       });
       // if (badgeText) {
