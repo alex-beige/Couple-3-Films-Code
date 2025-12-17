@@ -788,8 +788,8 @@ gsap.utils
           "p:has(~ spacer-heading-wrap)"
         ),
         split_subheading = new SplitText(subheading, { type: "lines,words" }),
-        gridCells = group.querySelectorAll(".work_section-grid > .grid-cell:not(:first-child)"),
-        gsapEl = group.querySelector("[gsap-el]");
+        gridCells = group.querySelectorAll(".work_section-grid > .grid-cell:not(:first-child)");
+        //gsapEl = group.querySelector("[gsap-el]");
         //sectionBG = group.querySelector(".section-background-img");
 
       let tl_group = gsap.timeline({
@@ -851,15 +851,15 @@ gsap.utils
           },
           "<0.4"
         )
-        .from(
-          gsapEl,
-          {
-            y: "24",
-            autoAlpha: 0,
-            stagger: 0.15,
-          },
-          "<"
-        );
+        // .from(
+        //   gsapEl,
+        //   {
+        //     y: "24",
+        //     autoAlpha: 0,
+        //     stagger: 0.15,
+        //   },
+        //   "<"
+        // );
     });
 gsap.utils
     .toArray(".work-category-wrapper")
@@ -882,9 +882,9 @@ gsap.utils
       tl_group.from(
           gridCells,
           {
-            y: "1.5em",
+            y: "2em",
             autoAlpha: 0,
-            stagger: 0.15,
+            stagger: 0.1,
           }
         )
         .from(
@@ -892,7 +892,7 @@ gsap.utils
           {
             y: "24",
             autoAlpha: 0,
-            stagger: 0.15,
+            stagger: 0.1,
           },
           "<"
         );
