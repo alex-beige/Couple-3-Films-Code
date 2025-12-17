@@ -785,7 +785,7 @@ gsap.utils
         ),
         split_heading = new SplitText(heading, { type: "words" }),
         subheading = group.querySelector(
-          "p:has(~ spacer-heading-wrap)"
+          "p:has(~ .spacer-heading-wrap)"
         ),
         split_subheading = new SplitText(subheading, { type: "lines,words" }),
         gridCells = group.querySelectorAll(".work_section-grid > .grid-cell:not(:first-child)");
