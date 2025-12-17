@@ -14,7 +14,7 @@ console.log("AB Web Dev");
   const DOT_DIAM = 3;
   const SPACING = 60;
 
-  const BASE = "hsla(0, 0%, 24%, 1.00)"; // Default dot color
+  const BASE = "hsla(0, 0%, 28%, 1.00)"; // Default dot color
   const HOVER = "hsla(0, 0%, 54%, 1.00)"; // Dot color near cursor
 
   const DOT_RADIUS = DOT_DIAM / 2;
@@ -55,8 +55,8 @@ console.log("AB Web Dev");
     // IMPORTANT: Initialize with hex colors for GSAP interpolation
     // GSAP struggles with HSLA strings, so we convert to hex
     let currentColors = {
-      base: "#333333", // Equivalent to hsla(0, 0%, 20%, 1.00)
-      hover: "#474747", // Equivalent to hsla(0, 0%, 25%, 1.00)
+      base: "#3d3d3d", // Equivalent to hsla(0, 0%, 20%, 1.00)
+      hover: "#545454", // Equivalent to hsla(0, 0%, 28%, 1.00)
       background:"#00000000", // null = transparent, set to color string to show background
     };
 
@@ -229,8 +229,8 @@ console.log("AB Web Dev");
        * Reset all colors to defaults
        */
       resetColors() {
-        currentColors.base = "#333333";
-        currentColors.hover = "#404040";
+        currentColors.base = "#3d3d3d";
+        currentColors.hover = "#545454";
         currentColors.background = null;
       },
     };
