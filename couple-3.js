@@ -776,7 +776,7 @@ let masterTimeline;
   });
   //tl_heroScroll.add(calloutColorTrigger, "colorChange=-0.3");
 gsap.utils
-    .toArray("section:[anim-section]")
+    .toArray("section[anim-section]")
     .forEach((group, i) => {
       // let badgeEl = group.querySelectorAll(".icon-small"),
       //   badgeText = group.querySelectorAll(".badge_text"),
