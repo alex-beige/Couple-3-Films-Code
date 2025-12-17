@@ -883,7 +883,9 @@ gsap.utils
           gridCells,
           {
             y: "2em",
+            duration:1,
             autoAlpha: 0,
+            ease: "power3.out",
             stagger: 0.1,
           }
         )
