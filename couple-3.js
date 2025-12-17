@@ -775,7 +775,128 @@ let masterTimeline;
     //start: "top+=140% top",
   });
   //tl_heroScroll.add(calloutColorTrigger, "colorChange=-0.3");
+gsap.utils
+    .toArray("section:[anim-section]")
+    .forEach((group, i) => {
+      // let badgeEl = group.querySelectorAll(".icon-small"),
+      //   badgeText = group.querySelectorAll(".badge_text"),
+        let heading = group.querySelector(
+          ".h1-size,h2,.h2-size,h3:not(.h3-size-minor),.h3-size:not(p)"
+        ),
+        split_heading = new SplitText(heading, { type: "words" }),
+        subheading = group.querySelector(
+          "p:has(~ spacer-heading-wrap)"
+        ),
+        split_subheading = new SplitText(subheading, { type: "lines,words" }),
+        gridCells = group.querySelectorAll(".work_section-grid > .grid-cell:not(:first-child)"),
+        gsapEl = group.querySelector("[gsap-el]");
+        //sectionBG = group.querySelector(".section-background-img");
 
+      let tl_group = gsap.timeline({
+        scrollTrigger: {
+          trigger: group,
+          toggleActions: "play none none none",
+          start: "top 64%",
+        },
+      });
+      // if (badgeText) {
+      //   tl_group.from([badgeEl, badgeText], {
+      //     autoAlpha: 0,
+      //     x: -12,
+      //     ease: "power2",
+      //     stagger: 0.08,
+      //   });
+      // }
+      // if (sectionBG) {
+      //   tl_group.from(
+      //     sectionBG,
+      //     {
+      //       //autoAlpha: 0,
+      //       duration: 1.5,
+      //       ease: "power2.inOut",
+      //       scale: 1.1,
+      //     },
+      //     "<"
+      //   );
+      // }
+      tl_group
+        .from(
+          $(heading).add(split_heading.words),
+          {
+            duration: 1,
+            autoAlpha: 0,
+            y: 27,
+            stagger: 0.06,
+            //ease: "power3",
+          }
+        )
+        .from(
+          $(subheading).add(split_subheading.lines),
+          {
+            autoAlpha: 0,
+            duration: 0.8,
+            y: 24,
+            //autoAlpha: 0,
+            //ease: "power3",
+            stagger: 0.08,
+          },
+          "<0.24"
+        )
+        .from(
+          gridCells,
+          {
+            y: "2em",
+            autoAlpha: 0,
+            stagger: 0.15,
+          },
+          "<0.4"
+        )
+        .from(
+          gsapEl,
+          {
+            y: "24",
+            autoAlpha: 0,
+            stagger: 0.15,
+          },
+          "<"
+        );
+    });
+gsap.utils
+    .toArray(".work-category-wrapper")
+    .forEach((group, i) => {
+      // let badgeEl = group.querySelectorAll(".icon-small"),
+      //   badgeText = group.querySelectorAll(".badge_text"),
+        
+        let gridCells = group.querySelectorAll(".work_cms-item,.work_cta-wrap"),
+        gsapEl = group.querySelector("[gsap-el]");
+        //sectionBG = group.querySelector(".section-background-img");
+
+      let tl_group = gsap.timeline({
+        scrollTrigger: {
+          trigger: group,
+          toggleActions: "play none none none",
+          start: "top 64%",
+        },
+      });
+
+      tl_group.from(
+          gridCells,
+          {
+            y: "1.5em",
+            autoAlpha: 0,
+            stagger: 0.15,
+          }
+        )
+        .from(
+          gsapEl,
+          {
+            y: "24",
+            autoAlpha: 0,
+            stagger: 0.15,
+          },
+          "<"
+        );
+    })
 let tl_calloutSection = gsap.timeline({
   scrollTrigger: {
     trigger: '#callout-section',
