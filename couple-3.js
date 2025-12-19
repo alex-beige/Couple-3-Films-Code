@@ -737,14 +737,16 @@ let masterTimeline;
     end:"bottom 48%",
     markers: true,
     //toggleActions: "play none none none",
-    scrub:1.
+    scrub:1.4
   }
 }), calloutSection = document.querySelector('#callout-section'),
+calloutWrapper = calloutSection.querySelector('.container')
 calloutTitle = calloutSection.querySelector('#callout-header'),
 calloutSplit = new SplitText(calloutTitle, {type: "lines,words"}),
 calloutButton = calloutSection.querySelector('.button');
 
-tl_calloutSection.from($(calloutTitle).add(calloutSplit.lines),{y:24, autoAlpha:0, stagger:0.08, ease:"power3.out"})
+tl_calloutSection.fromTo(calloutWrapper,{yPercent:-20},{yPercent:20,duration:1.6,"power1.inOut"}).from($(calloutTitle).add(calloutSplit.lines),{yPercent:32, autoAlpha:0, stagger:0.12})
+.from($(calloutSplit.words),{color:"#333333", autoAlpha:0, stagger:{amount:0.5}},"<")
 .from(calloutButton,{y:28, autoAlpha:0, duration:0.6, ease:"power2.out"}, ">-0.5");
 
 
