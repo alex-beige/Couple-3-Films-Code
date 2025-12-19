@@ -854,8 +854,7 @@ workGridCells.forEach((cell, index) => {
 
   // Position this cell's animation at its segment
   // Add 1 to index so first cell isn't at 0
-  const timelinePosition = (segmentDuration * (index));
-  timelinePosition = (index == 0) ? -1 : timelinePosition;
+    const timelinePosition = (index === 0) ? -1 : (segmentDuration * index);
 
   tl_workScrolling.from(innerCells, {
     y: '2em',
