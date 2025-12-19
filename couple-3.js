@@ -754,8 +754,7 @@ tl_calloutSection.fromTo(calloutWrapper,{yPercent:-20},{yPercent:20,duration:1.6
 gsap.utils
     .toArray("section[anim-section]")
     .forEach((group, i) => {
-      // let badgeEl = group.querySelectorAll(".icon-small"),
-      //   badgeText = group.querySelectorAll(".badge_text"),
+
         let heading = group.querySelector(
           ".h1-size,h2,.h2-size,h3:not(.h3-size-minor),.h3-size:not(p)"
         ),
@@ -763,10 +762,9 @@ gsap.utils
         subheading = group.querySelector(
           "p:has(~ .spacer-heading-wrap)"
         ),
-        split_subheading = new SplitText(subheading, { type: "lines,words" }),
-        gridCells = group.querySelectorAll(".work_section-grid > .grid-cell:not(:first-child)");
-        //gsapEl = group.querySelector("[gsap-el]");
-        //sectionBG = group.querySelector(".section-background-img");
+        split_subheading = new SplitText(subheading, { type: "lines,words" });
+        //gridCells = group.querySelectorAll(".work_section-grid > .grid-cell:not(:first-child)");
+
 
       let tl_group = gsap.timeline({
         scrollTrigger: {
@@ -834,7 +832,19 @@ let tl_workScrolling = gsap.timeline({
   workGridCells.forEach((cell, index) => {
     //this is what I'd like to stagger animate in as I "scroll" the work grid up
     let innerCells = cell.querySelectorAll('.grid-cell');
-  });
+    //tl_workScrolling.add(
+      gsap.from(innerCells, {
+      scrollTrigger: innerCells[0],
+      start: "top 60%",
+      end: "bottom 44%",
+      y: '2em',
+      autoAlpha: 0,
+      stagger: 0.1,
+      toggleActions: "play none none reverse",
+
+  })
+//)
+});
 
 // Calculate the distance to move the grid so its bottom aligns with viewport bottom
 // Distance = grid height - viewport height
