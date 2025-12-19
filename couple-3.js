@@ -605,7 +605,7 @@ let masterTimeline;
       x: brandCenterX,
       immediateRender: false,
       ease: "power2.inOut",
-      //overwrite: 'auto'
+      duration:0.6
     },"<0.1")
     // Center video wrapper in viewport
     .to(
@@ -615,7 +615,7 @@ let masterTimeline;
         y: () => centerTargetXY(elements.videoWrapper).y,
        ease: "power2.inOut",
       },
-      "<-0.12"
+      "<"
     )
     // Scale video to fill viewport (maintaining aspect ratio)
     .to(
