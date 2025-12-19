@@ -668,7 +668,7 @@ let masterTimeline;
   ScrollTrigger.create({
     trigger: '#callout-section',
     start: "top 180%",
-    markers: true,
+    //markers: true,
     end: "top 56%",
     // This creates a trigger point approximately 70% through the scroll animation
     onEnter: () => {
@@ -730,24 +730,37 @@ let masterTimeline;
   });
 
   //callout section animation
-  let tl_calloutSection = gsap.timeline({
-  scrollTrigger: {
-    trigger: '#callout-section',
-    start: "top 52%",
-    end:"bottom 48%",
-    markers: true,
-    //toggleActions: "play none none none",
-    scrub:1
-  }
-}), calloutSection = document.querySelector('#callout-section'),
-calloutWrapper = calloutSection.querySelector('.container')
-calloutTitle = calloutSection.querySelector('#callout-header'),
-calloutSplit = new SplitText(calloutTitle, {type: "lines,words",autoSplit: true}),
-calloutButton = calloutSection.querySelector('.button');
+  let calloutSection = document.querySelector('#callout-section'),
+  calloutWrapper = calloutSection.querySelector('.container'),
+  calloutTitle = calloutSection.querySelector('#callout-header'),
+  calloutButton = calloutSection.querySelector('.button');
 
-tl_calloutSection.fromTo(calloutWrapper,{yPercent:-10},{yPercent:16,duration:1.6,ease:"power1.inOut"}).from(calloutSplit.lines,{yPercent:32, autoAlpha:0, stagger:0.12},"<")
-.from(calloutSplit.words,{color:"#333333", autoAlpha:0, stagger:{amount:0.5}},"<")
-.from(calloutButton,{y:28, autoAlpha:0, duration:0.6, ease:"power2.out"}, ">-0.5");
+  let tl_calloutSection = gsap.timeline({
+    scrollTrigger: {
+      trigger: '#callout-section',
+      start: "top 52%",
+      end:"bottom 48%",
+      //markers: true,
+      //toggleActions: "play none none none",
+      scrub:1
+    }
+  });
+
+  // Create SplitText with autoSplit and animations in onSplit callback
+  let calloutSplit = new SplitText(calloutTitle, {
+    type: "lines,words",
+    autoSplit: true,
+    onSplit: (self) => {
+      // Clear and rebuild the timeline with the freshly-split elements
+      tl_calloutSection.clear();
+
+      tl_calloutSection
+        .fromTo(calloutWrapper, {yPercent:-10}, {yPercent:16, duration:1.6, ease:"power1.inOut"})
+        .from(self.lines, {yPercent:32, autoAlpha:0, stagger:0.12}, "<")
+        .from(self.words, {color:"#333333", autoAlpha:0, stagger:{amount:0.5}}, "<")
+        .from(calloutButton, {y:28, autoAlpha:0, duration:0.6, ease:"power2.out"}, ">-0.5");
+    }
+  });
 
 
   //tl_heroScroll.add(calloutColorTrigger, "colorChange=-0.3");
@@ -857,7 +870,7 @@ tl_workScrolling.to(workGrid,{
     const gridTop = workGrid.offsetTop; // Distance from parent's top
 
     // Total distance to move = grid height + its top offset - viewport height
-    return -(gridHeight + gridTop - viewportHeight);
+    return -(gridHeight + gridTop + 80 - viewportHeight);
   },
   duration:1.6,
   ease:"power1.inOut"
