@@ -857,26 +857,30 @@ tl_workScrolling.to(workGrid,{
   },
   duration:1.6,
   ease:"power1.inOut"
+}, 0); // Start at the beginning of the timeline
+
+// Add inner cell animations to the timeline
+workGridCells.forEach((cell, index) => {
+  let innerCells = cell.querySelectorAll('.work_cms-item,.work_cta-separator');
+
+  // Calculate when this cell should animate based on its position
+  // Each cell animates when it reaches roughly 60% of the viewport
+  const cellHeight = cell.offsetHeight;
+  const cellTop = cell.offsetTop;
+  const viewportHeight = window.innerHeight;
+
+  // Calculate the timeline position when this cell is at 60% viewport
+  const timelineProgress = (cellTop - viewportHeight * 0.6) / (workGrid.offsetHeight - viewportHeight);
+  const timelinePosition = Math.max(0, timelineProgress * 1.6); // 1.6 is the duration
+
+  tl_workScrolling.from(innerCells, {
+    y: '2em',
+    autoAlpha: 0,
+    stagger: 0.1,
+    duration: 0.6,
+    ease: "power2.out"
+  }, timelinePosition);
 });
-
- workGridCells.forEach((cell, index) => {
-    //this is what I'd like to stagger animate in as I "scroll" the work grid up
-    let innerCells = cell.querySelectorAll('.work_cms-item,.work_cta-separator');
-
-    gsap.from(innerCells, {
-      y: '2em',
-      autoAlpha: 0,
-      stagger: 0.1,
-      scrollTrigger: {
-        trigger: cell,
-        containerAnimation: tl_workScrolling.scrollTrigger.animation,
-        start: "top 60%",
-        end: "bottom 44%",
-        toggleActions: "play none none reverse",
-        markers: true
-      }
-    });
-  });
 /*    
 gsap.utils
     .toArray(".work-category-wrapper")
