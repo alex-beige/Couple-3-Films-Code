@@ -846,7 +846,7 @@ let tl_workScrolling = gsap.timeline({
 
 // Calculate the distance to move the grid so its bottom aligns with viewport bottom
 // We need to account for: grid height + offset from parent top - viewport height
-tl_workScrolling.to(workGrid,{
+tl_workScrolling.from({},{duration: 0.2}).to(workGrid,{
   y: () => {
     const gridHeight = workGrid.offsetHeight;
     const viewportHeight = window.innerHeight;
@@ -869,7 +869,7 @@ const viewportHeight = window.innerHeight;
 const gridTop = workGrid.offsetTop;
 const totalGridTravel = gridHeight + gridTop - viewportHeight;
 const timelineRatio = (gridHeight - viewportHeight) / totalGridTravel;
-const usableTimelineDuration = 1.4 * timelineRatio; // Use proportional amount of the 1.6s timeline
+const usableTimelineDuration = 1.6 * timelineRatio; // Use proportional amount of the 1.6s timeline
 
 // Divide the usable duration into equal segments
 const segmentDuration = usableTimelineDuration / (numCells + 1);
