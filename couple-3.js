@@ -586,7 +586,7 @@ let masterTimeline;
         duration:0.64
       },
       "<0.04")
-    .fromTo(".hero-framing-wrap", {autoAlpha:0,scale:0.9},{autoAlpha:1, duration:0.3},">-0.35")
+    .fromTo(".hero-framing-wrap", {autoAlpha:0,scale:0.9},{autoAlpha:1, scale:1, duration:0.3},">-0.35")
     //.addLabel('colorChange',"<")
     .to({},{ duration: 0.1 }) // tiny pause to create a gap in the scrub
 
