@@ -845,21 +845,19 @@ let tl_workScrolling = gsap.timeline({
   workGridCells.forEach((cell, index) => {
     //this is what I'd like to stagger animate in as I "scroll" the work grid up
     let innerCells = cell.querySelectorAll('.work_cms-item,.work_cta-separator');
-    //tl_workScrolling.add(
-      gsap.from(innerCells, {
-      scrollTrigger: {
-        trigger: cell,
-      start: "top 60%",
-      end: "bottom 44%",
+
+    gsap.from(innerCells, {
       y: '2em',
       autoAlpha: 0,
       stagger: 0.1,
-      toggleActions: "play none none reverse"
+      scrollTrigger: {
+        trigger: cell,
+        start: "top 60%",
+        end: "bottom 44%",
+        toggleActions: "play none none reverse"
       }
-
-  })
-//)
-});
+    });
+  });
 
 // Calculate the distance to move the grid so its bottom aligns with viewport bottom
 // We need to account for: grid height + offset from parent top - viewport height
