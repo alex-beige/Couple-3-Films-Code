@@ -758,7 +758,7 @@ let masterTimeline;
         .fromTo(calloutWrapper, {yPercent:-13}, {yPercent:12, duration:1.6, ease:"power1.inOut"})
         .from(self.lines, {yPercent:32, autoAlpha:0, stagger:0.12}, "<")
         .from(self.words, {color:"#333333", autoAlpha:0, stagger:{amount:0.5}}, "<")
-        .fromTo(calloutButton, {y:28, autoAlpha:0},{y:0, autoAlpha:1, duration:0.6, ease:"power2.out"}, ">-0.6");
+        .fromTo(calloutButton, {y:-28, autoAlpha:0},{y:0, autoAlpha:1, duration:0.6, ease:"power2.out"}, ">-0.6");
     }
   });
 
