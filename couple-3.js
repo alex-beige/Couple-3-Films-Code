@@ -932,10 +932,10 @@ gsap.utils
   let tl_ctaAnimation = gsap.timeline({
     scrollTrigger: {
       trigger: '#cta-section',
-      start: "top 60%", 
+      start: "top 50%", 
       //pin: true,
       end: "+=55%",
-      scrub: 1.6,
+      //scrub: 1.6,
       //invalidateOnRefresh: true,
       //markers: true,
       // toggleActions: "play none none none",
@@ -962,7 +962,7 @@ gsap.to('.bg-overlay',{backgroundColor:"#0a0a0a00", duration:0.8, ease:"power2.i
   ctaContactSplit = new SplitText(ctaContactText, {type: "words,chars"}),
   ctaButton = ctaSection.querySelector('.cta_button-wrap');
 
-  tl_ctaAnimation.fromTo('[cta-half-section]',{clipPath:'inset(0% 100% 0% 0%)'},{clipPath:'inset(0% 0% 0% 0%)', duration:0.8, ease:"power2.inOut"})
+  tl_ctaAnimation.fromTo('[cta-half-section]',{clipPath:'inset(0% 100% 0% 0%)'},{clipPath:'inset(0% 0% 0% 0%)', duration:1.4, ease:"power2.inOut"})
   .from($(ctaTitle).add(ctaSplit.words).add(ctaParagraph),{y:24, autoAlpha:0, stagger:0.06, ease:"power2.out"}, "<0.2")
   .from(ctaArrowEl,{x:-12, autoAlpha:0, ease:"power2.inOut",stagger:0.08}, ">-0.4")
   .from([ctaCircles[0],ctaCircles[2]],{scale:0.8, autoAlpha:0, stagger:0.1, ease:"power2.out"}, "<0.2")
