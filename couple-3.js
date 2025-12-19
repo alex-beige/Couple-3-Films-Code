@@ -869,7 +869,7 @@ const viewportHeight = window.innerHeight;
 const gridTop = workGrid.offsetTop;
 const totalGridTravel = gridHeight + gridTop - viewportHeight;
 const timelineRatio = (gridHeight - viewportHeight) / totalGridTravel;
-const usableTimelineDuration = 1.6 * timelineRatio; // Use proportional amount of the 1.6s timeline
+const usableTimelineDuration = 1.2 * timelineRatio; // Use proportional amount of the 1.6s timeline
 
 // Divide the usable duration into equal segments
 const segmentDuration = usableTimelineDuration / (numCells + 1);
