@@ -869,6 +869,7 @@ tl_workScrolling.to(workGrid,{
       stagger: 0.1,
       scrollTrigger: {
         trigger: cell,
+        containerAnimation: tl_workScrolling,
         start: "top 60%",
         end: "bottom 44%",
         toggleActions: "play none none reverse"
