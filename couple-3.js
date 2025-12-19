@@ -868,7 +868,7 @@ tl_workScrolling.to(workGrid,{
     const gridTop = workGrid.offsetTop; // Distance from parent's top
 
     // Total distance to move = grid height + its top offset - viewport height
-    return -(gridHeight + gridTop + 80 - viewportHeight);
+    return -(gridHeight + gridTop + 124 - viewportHeight);
   },
   duration:1.6,
   ease:"power1.inOut"
