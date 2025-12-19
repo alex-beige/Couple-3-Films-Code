@@ -737,7 +737,7 @@ let masterTimeline;
     end:"bottom 48%",
     markers: true,
     //toggleActions: "play none none none",
-    scrub:1.4
+    scrub:1
   }
 }), calloutSection = document.querySelector('#callout-section'),
 calloutWrapper = calloutSection.querySelector('.container')
@@ -745,8 +745,8 @@ calloutTitle = calloutSection.querySelector('#callout-header'),
 calloutSplit = new SplitText(calloutTitle, {type: "lines,words"}),
 calloutButton = calloutSection.querySelector('.button');
 
-tl_calloutSection.fromTo(calloutWrapper,{yPercent:-20},{yPercent:20,duration:1.6,ease:"power1.inOut"}).from($(calloutTitle).add(calloutSplit.lines),{yPercent:32, autoAlpha:0, stagger:0.12},"<")
-.from($(calloutSplit.words),{color:"#333333", autoAlpha:0, stagger:{amount:0.5}},"<")
+tl_calloutSection.fromTo(calloutWrapper,{yPercent:-16},{yPercent:16,duration:1.6,ease:"power1.inOut"}).from(calloutSplit.lines,{yPercent:32, autoAlpha:0, stagger:0.12},"<")
+.from(calloutSplit.words,{color:"#333333", autoAlpha:0, stagger:{amount:0.5}},"<")
 .from(calloutButton,{y:28, autoAlpha:0, duration:0.6, ease:"power2.out"}, ">-0.5");
 
 
@@ -797,15 +797,15 @@ gsap.utils
           },
           "<0.24"
         )
-        .from(
-          gridCells,
-          {
-            y: "2em",
-            autoAlpha: 0,
-            stagger: 0.15,
-          },
-          "<0.4"
-        )
+        // .from(
+        //   gridCells,
+        //   {
+        //     y: "2em",
+        //     autoAlpha: 0,
+        //     stagger: 0.15,
+        //   },
+        //   "<0.4"
+        // )
         // .from(
         //   gsapEl,
         //   {
