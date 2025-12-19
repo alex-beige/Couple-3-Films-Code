@@ -14,7 +14,7 @@ console.log("AB Web Dev");
   const DOT_DIAM = 3;
   const SPACING = 60;
 
-  const BASE = "hsla(0, 0%, 28%, 1.00)"; // Default dot color
+  const BASE = "hsla(0, 0%, 27%, 1.00)"; // Default dot color
   const HOVER = "hsla(0, 0%, 54%, 1.00)"; // Dot color near cursor
 
   const DOT_RADIUS = DOT_DIAM / 2;
@@ -55,11 +55,14 @@ console.log("AB Web Dev");
     // IMPORTANT: Initialize with hex colors for GSAP interpolation
     // GSAP struggles with HSLA strings, so we convert to hex
     let currentColors = {
-      base: "#3d3d3d", // Equivalent to hsla(0, 0%, 20%, 1.00)
+      base: "#3b3b3b", // Equivalent to hsla(0, 0%, 20%, 1.00)
       hover: "#545454", // Equivalent to hsla(0, 0%, 28%, 1.00)
       background:"#00000000", // null = transparent, set to color string to show background
     };
 
+
+    //gsap fade in grid tween
+    let fadeInCanvas = gsap.to(wrapper.querySelector("canvas"), {duration: 0.8, opacity: 1, scale:1, ease: "power2.out",paused:true});
     /**
      * Rebuilds the dot grid based on current window size
      * Called on setup and window resize
@@ -92,6 +95,9 @@ console.log("AB Web Dev");
           points[i++] = { x, y };
         }
       }
+      // Play fade-in tween on rebuild
+      fadeInCanvas.restart();
+
     }
 
     /**
@@ -110,6 +116,8 @@ console.log("AB Web Dev");
         height: "100vh",
         pointerEvents: "none", // Allow clicks to pass through to content
         display: "block",
+        opacity: "0",
+        transform:"scale(0.97)"
       });
 
       // Enable high-DPI support for crisp dots on retina displays
@@ -229,7 +237,7 @@ console.log("AB Web Dev");
        * Reset all colors to defaults
        */
       resetColors() {
-        currentColors.base = "#3d3d3d";
+        currentColors.base = "#3b3b3b";
         currentColors.hover = "#545454";
         currentColors.background = null;
       },
