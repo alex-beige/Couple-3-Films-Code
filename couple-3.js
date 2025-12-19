@@ -842,22 +842,7 @@ let tl_workScrolling = gsap.timeline({
 }),
   workGrid = workSectionsWrapper.querySelector('#work-grid'),
   workGridCells = workSectionsWrapper.querySelectorAll('.work-category-wrapper');
-  workGridCells.forEach((cell, index) => {
-    //this is what I'd like to stagger animate in as I "scroll" the work grid up
-    let innerCells = cell.querySelectorAll('.work_cms-item,.work_cta-separator');
-
-    gsap.from(innerCells, {
-      y: '2em',
-      autoAlpha: 0,
-      stagger: 0.1,
-      scrollTrigger: {
-        trigger: cell,
-        start: "top 60%",
-        end: "bottom 44%",
-        toggleActions: "play none none reverse"
-      }
-    });
-  });
+ 
 
 // Calculate the distance to move the grid so its bottom aligns with viewport bottom
 // We need to account for: grid height + offset from parent top - viewport height
@@ -873,6 +858,23 @@ tl_workScrolling.to(workGrid,{
   duration:1.6,
   ease:"power1.inOut"
 });
+
+ workGridCells.forEach((cell, index) => {
+    //this is what I'd like to stagger animate in as I "scroll" the work grid up
+    let innerCells = cell.querySelectorAll('.work_cms-item,.work_cta-separator');
+
+    gsap.from(innerCells, {
+      y: '2em',
+      autoAlpha: 0,
+      stagger: 0.1,
+      scrollTrigger: {
+        trigger: cell,
+        start: "top 60%",
+        end: "bottom 44%",
+        toggleActions: "play none none reverse"
+      }
+    });
+  });
 /*    
 gsap.utils
     .toArray(".work-category-wrapper")
