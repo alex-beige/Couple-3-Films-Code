@@ -844,7 +844,7 @@ let tl_workScrolling = gsap.timeline({
   workGridCells = workSectionsWrapper.querySelectorAll('.work-category-wrapper');
   workGridCells.forEach((cell, index) => {
     //this is what I'd like to stagger animate in as I "scroll" the work grid up
-    let innerCells = cell.querySelectorAll('.grid-cell');
+    let innerCells = cell.querySelectorAll('.work_cms-item,.work_cta-separator');
     //tl_workScrolling.add(
       gsap.from(innerCells, {
       scrollTrigger: {
