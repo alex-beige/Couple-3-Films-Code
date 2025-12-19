@@ -865,13 +865,26 @@ workGridCells.forEach((cell, index) => {
 
   // Calculate when this cell should animate based on its position
   // Each cell animates when it reaches roughly 60% of the viewport
-  const cellHeight = cell.offsetHeight;
   const cellTop = cell.offsetTop;
   const viewportHeight = window.innerHeight;
+  const gridTop = workGrid.offsetTop;
 
-  // Calculate the timeline position when this cell is at 60% viewport
-  const timelineProgress = (cellTop - viewportHeight * 0.6) / (workGrid.offsetHeight - viewportHeight);
-  const timelinePosition = Math.max(0, timelineProgress * 1.6); // 1.6 is the duration
+  // When the section first pins, the grid is at its natural position
+  // As we scroll/scrub, the grid moves upward
+  // We want to animate when cell reaches 60vh from the top
+
+  // Initial offset of cell from top of viewport when pin starts
+  const initialCellOffset = cellTop + gridTop;
+
+  // Distance the grid needs to move for this cell to reach 60vh
+  const distanceToAnimate = initialCellOffset - (viewportHeight * 0.6);
+
+  // Total distance the grid will travel
+  const totalGridTravel = workGrid.offsetHeight + gridTop - viewportHeight;
+
+  // Calculate timeline position (0 to 1.6 seconds)
+  const timelineProgress = Math.max(0, Math.min(1, distanceToAnimate / totalGridTravel));
+  const timelinePosition = timelineProgress * 1.6; // 1.6 is the duration
 
   tl_workScrolling.from(innerCells, {
     y: '2em',
