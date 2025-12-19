@@ -216,11 +216,11 @@ let masterTimeline;
       logoOffsetX: 24,
       logoDuration: 1.64,
       textDuration: 1,
-      textYPercent: 25,
-      textStagger: 0.05,
+      textYPercent: 32,
+      textStagger: 0.06,
       elementY: 24,
       elementStagger: 0.12,
-      videoYPercent: 20,
+      videoYPercent: 24,
       videoDuration: 1,
     },
 
@@ -242,8 +242,9 @@ let masterTimeline;
     // These can be animated during the intro or scroll sequences
     // NOTE: Use hex or rgb(a) colors for smooth GSAP interpolation
     dotColors: {
-      baseDefault: "#333333", // Dark gray dots
-      hoverDefault: "#404040", // Slightly lighter gray
+      baseDefault: "#3b3b3b", // Dark gray dots
+      hoverDefault: "#545454", // Slightly lighter gray
+     
       // Example color transitions you might want:
       // baseLight: "#e6e6e6",  // Light dots
       // hoverLight: "#f2f2f2", // Lighter hover
@@ -454,56 +455,10 @@ let masterTimeline;
         autoAlpha: 0,
         ease: "power3",
       },
-      "<0.6"
+      "<0.3"
     );
 
-  // ====================================
-  // BACKGROUND DOT ANIMATIONS (Optional)
-  // ====================================
-  // Uncomment and customize these examples to animate the p5.js background dots
-  // The p5DotGrid API is exposed globally from couple-3-bg.js
-
-  /*
-  // Example 1: Animate dot colors during intro
-  tl_intro.to(
-    window.p5DotGrid.colors,
-    {
-      base: "hsla(0, 0%, 90%, 1.00)",  // Lighter dots
-      hover: "hsla(0, 0%, 95%, 1.00)", // Lighter hover
-      duration: 2,
-      ease: "power2.inOut",
-    },
-    "<" // Start with previous animation
-  );
-  */
-
-  /*
-  // Example 2: Add solid background color
-  tl_intro.to(
-    window.p5DotGrid.colors,
-    {
-      background: "#0b0b0f", // Dark solid background
-      duration: 1.5,
-      ease: "power2.out",
-    },
-    ">-1" // Overlap with previous
-  );
-  */
-
-  /*
-  // Example 3: Animate colors during scroll
-  tl_heroScroll.to(
-    window.p5DotGrid.colors,
-    {
-      base: "#ffffff",
-      hover: "#cccccc",
-      background: "#000000",
-      duration: 1,
-      ease: "none",
-    },
-    "<" // Start at beginning of scroll timeline
-  );
-  */
+  
 
   // ====================================
   // ROTATING RINGS TIMELINES
@@ -628,11 +583,12 @@ let masterTimeline;
         ),
         transformOrigin: "50% 50%",
         ease: "power2.inOut",
+        duration:0.64
       },
-      "<0.05")
-    .fromTo(".hero-framing-wrap", {autoAlpha:0,scale:0.9},{autoAlpha:1, duration:0.3, scale:1.03},">-0.35")
+      "<0.04")
+    .fromTo(".hero-framing-wrap", {autoAlpha:0,scale:0.9},{autoAlpha:1, duration:0.3},">-0.35")
     //.addLabel('colorChange',"<")
-    .to({},{ duration: 0.15 }) // tiny pause to create a gap in the scrub
+    .to({},{ duration: 0.1 }) // tiny pause to create a gap in the scrub
 
 
 
@@ -785,7 +741,7 @@ let masterTimeline;
   }
 }), calloutSection = document.querySelector('#callout-section'),
 calloutTitle = calloutSection.querySelector('#callout-header'),
-calloutSplit = new SplitText(calloutTitle, {type: "lines,words",mask: "lines"}),
+calloutSplit = new SplitText(calloutTitle, {type: "lines,words"}),
 calloutButton = calloutSection.querySelector('.button');
 
 tl_calloutSection.from($(calloutTitle).add(calloutSplit.lines),{y:24, autoAlpha:0, stagger:0.08, ease:"power3.out"})
