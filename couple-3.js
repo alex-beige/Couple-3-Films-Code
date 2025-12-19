@@ -825,16 +825,28 @@ let tl_workScrolling = gsap.timeline({
     start: "top top",
     end:"+=150%",
     scrub:1.4,
-    pin:true
+    pin:true,
+    invalidateOnRefresh: true
   }
 }),
   workGrid = workSectionsWrapper.querySelector('#work-grid'),
-  workGridCells = workSectionsWrapper.querySelectorAll('.work-category-wrapper'); 
+  workGridCells = workSectionsWrapper.querySelectorAll('.work-category-wrapper');
   workGridCells.forEach((cell, index) => {
     //this is what I'd like to stagger animate in as I "scroll" the work grid up
     let innerCells = cell.querySelectorAll('.grid-cell');
   });
-tl_workScrolling.to(workGrid,{yPercent:-100,duration:1.6,ease:"power1.inOut"});
+
+// Calculate the distance to move the grid so its bottom aligns with viewport bottom
+// Distance = grid height - viewport height
+tl_workScrolling.to(workGrid,{
+  y: () => {
+    const gridHeight = workGrid.offsetHeight;
+    const viewportHeight = window.innerHeight;
+    return -(gridHeight - viewportHeight);
+  },
+  duration:1.6,
+  ease:"power1.inOut"
+});
 /*    
 gsap.utils
     .toArray(".work-category-wrapper")
