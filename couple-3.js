@@ -630,7 +630,7 @@ let masterTimeline;
         ease: "power2.inOut",
       },
       "<0.05")
-    .fromTo(".hero-framing-wrap", {autoAlpha:0,scale:0.9},{autoAlpha:1, duration:0.3, scale:1 },">-0.35")
+    .fromTo(".hero-framing-wrap", {autoAlpha:0,scale:0.9},{autoAlpha:1, duration:0.3, scale:1.03},">-0.35")
     //.addLabel('colorChange',"<")
     .to({},{ duration: 0.15 }) // tiny pause to create a gap in the scrub
 
@@ -712,20 +712,20 @@ let masterTimeline;
   ScrollTrigger.create({
     trigger: '#callout-section',
     start: "top 180%",
-    //markers: true,
-    end: 'bottom 60%',
+    markers: true,
+    end: 'bottom 80%',
     // This creates a trigger point approximately 70% through the scroll animation
     onEnter: () => {
       gsap.to(window.p5DotGrid.colors, {
         base: "#F2EFED",
         hover: "#fbfaf9",
         
-        duration: 0.8,
+        duration: 0.6,
         ease: "power2.inOut",
       });
       gsap.to('.bg-overlay', {
         backgroundColor: "#c7c7c7",
-        duration: 0.8,
+        duration: 0.6,
         ease: "power2.inOut",
       });
     },
@@ -733,8 +733,7 @@ let masterTimeline;
       gsap.to(window.p5DotGrid.colors, {
         base: CONFIG.dotColors.baseDefault,
         hover: CONFIG.dotColors.hoverDefault,
-        
-        duration: 0.72,
+        duration: 0.6,
         ease: "power2.inOut",
       });
       gsap.to('.bg-overlay', {
@@ -748,7 +747,7 @@ let masterTimeline;
         base: CONFIG.dotColors.baseDefault,
         hover: CONFIG.dotColors.hoverDefault,
         
-        duration: 0.72,
+        duration: 0.6,
         ease: "power2.inOut",
       });
       gsap.to('.bg-overlay', {
@@ -762,18 +761,37 @@ let masterTimeline;
         base: "#F2EFED",
         hover: "#fbfaf9",
         
-        duration: 0.8,
+        duration: 0.6,
         ease: "power2.inOut",
       });
       gsap.to('.bg-overlay', {
         backgroundColor: "#c7c7c7",
-        duration: 0.8,
+        duration: 0.6,
         ease: "power2.inOut",
       });
     },
-    // Adjust start position to align with label (around 70% through the pin)
-    //start: "top+=140% top",
+
   });
+
+  //callout section animation
+  let tl_calloutSection = gsap.timeline({
+  scrollTrigger: {
+    trigger: '#callout-section',
+    start: "top 55%",
+    end:"bottom 45%",
+    markers: true,
+    //toggleActions: "play none none none",
+    scrub:1.
+  }
+}), calloutSection = document.querySelector('#callout-section'),
+calloutTitle = calloutSection.querySelector('#callout-header'),
+calloutSplit = new SplitText(calloutTitle, {type: "lines,words,chars"}),
+calloutButton = calloutSection.querySelector('.button');
+
+tl_calloutSection.from($(calloutTitle).add(calloutSplit.lines),{y:24, autoAlpha:0, stagger:0.08, ease:"power3.out"})
+.from(calloutButton,{y:28, autoAlpha:0, ease:"power2.out"}, ">-0.4");
+
+
   //tl_heroScroll.add(calloutColorTrigger, "colorChange=-0.3");
 gsap.utils
     .toArray("section[anim-section]")
@@ -799,26 +817,7 @@ gsap.utils
           start: "top 54%",
         },
       });
-      // if (badgeText) {
-      //   tl_group.from([badgeEl, badgeText], {
-      //     autoAlpha: 0,
-      //     x: -12,
-      //     ease: "power2",
-      //     stagger: 0.08,
-      //   });
-      // }
-      // if (sectionBG) {
-      //   tl_group.from(
-      //     sectionBG,
-      //     {
-      //       //autoAlpha: 0,
-      //       duration: 1.5,
-      //       ease: "power2.inOut",
-      //       scale: 1.1,
-      //     },
-      //     "<"
-      //   );
-      // }
+   
       tl_group
         .from(
           $(heading).add(split_heading.words),
@@ -899,19 +898,6 @@ gsap.utils
           "<"
         );
     })
-let tl_calloutSection = gsap.timeline({
-  scrollTrigger: {
-    trigger: '#callout-section',
-    start: "top 55%",
-    toggleActions: "play none none none",
-  }
-}), calloutSection = document.querySelector('#callout-section'),
-calloutTitle = calloutSection.querySelector('.subheading'),
-calloutSplit = new SplitText(calloutTitle, {type: "lines,words,chars"}),
-calloutButton = calloutSection.querySelector('.button');
-
-tl_calloutSection.from($(calloutTitle).add(calloutSplit.lines),{y:24, autoAlpha:0, stagger:0.08, ease:"power3.out"})
-.from(calloutButton,{y:28, autoAlpha:0, ease:"power2.out"}, ">-0.4");
 
   let tl_ctaAnimation = gsap.timeline({
     scrollTrigger: {

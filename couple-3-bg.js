@@ -61,8 +61,7 @@ console.log("AB Web Dev");
     };
 
 
-    //gsap fade in grid tween
-    let fadeInCanvas = gsap.to(wrapper.querySelector("canvas"), {duration: 0.8, opacity: 1, scale:1, ease: "power2.out",paused:true});
+    
     /**
      * Rebuilds the dot grid based on current window size
      * Called on setup and window resize
@@ -99,7 +98,8 @@ console.log("AB Web Dev");
       fadeInCanvas.play();
 
     }
-
+//gsap fade in grid tween
+    let fadeInCanvas;
     /**
      * p5.js setup - runs once when sketch starts
      */
@@ -127,6 +127,9 @@ console.log("AB Web Dev");
       // Configure drawing style
       p.noStroke();
       p.ellipseMode(p.CENTER);
+
+      // Create fade-in tween (paused by default)
+      fadeInCanvas = gsap.to(wrapper.querySelector("canvas"), {duration: 0.8, opacity: 1, scale:1, ease: "power2.out",paused:true});
 
       rebuildGrid();
     };
