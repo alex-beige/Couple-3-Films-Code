@@ -713,7 +713,7 @@ let masterTimeline;
     trigger: '#callout-section',
     start: "top 180%",
     markers: true,
-    end: 'bottom 80%',
+    end: "top 56%",
     // This creates a trigger point approximately 70% through the scroll animation
     onEnter: () => {
       gsap.to(window.p5DotGrid.colors, {
@@ -777,8 +777,8 @@ let masterTimeline;
   let tl_calloutSection = gsap.timeline({
   scrollTrigger: {
     trigger: '#callout-section',
-    start: "top 55%",
-    end:"bottom 45%",
+    start: "top 52%",
+    end:"bottom 48%",
     markers: true,
     //toggleActions: "play none none none",
     scrub:1.
@@ -789,7 +789,7 @@ calloutSplit = new SplitText(calloutTitle, {type: "lines,words,chars"}),
 calloutButton = calloutSection.querySelector('.button');
 
 tl_calloutSection.from($(calloutTitle).add(calloutSplit.lines),{y:24, autoAlpha:0, stagger:0.08, ease:"power3.out"})
-.from(calloutButton,{y:28, autoAlpha:0, ease:"power2.out"}, ">-0.4");
+.from(calloutButton,{y:28, autoAlpha:0, duration:0.6, ease:"power2.out"}, ">-0.5");
 
 
   //tl_heroScroll.add(calloutColorTrigger, "colorChange=-0.3");
