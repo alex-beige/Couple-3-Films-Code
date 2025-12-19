@@ -860,31 +860,26 @@ tl_workScrolling.to(workGrid,{
 }, 0); // Start at the beginning of the timeline
 
 // Add inner cell animations to the timeline
+// Distribute animations evenly across the timeline
+const numCells = workGridCells.length;
+
+// Calculate how much of the timeline to use (similar ratio to grid scroll distance)
+const gridHeight = workGrid.offsetHeight;
+const viewportHeight = window.innerHeight;
+const gridTop = workGrid.offsetTop;
+const totalGridTravel = gridHeight + gridTop - viewportHeight;
+const timelineRatio = (gridHeight - viewportHeight) / totalGridTravel;
+const usableTimelineDuration = 1.6 * timelineRatio; // Use proportional amount of the 1.6s timeline
+
+// Divide the usable duration into equal segments
+const segmentDuration = usableTimelineDuration / (numCells + 1);
+
 workGridCells.forEach((cell, index) => {
   let innerCells = cell.querySelectorAll('.work_cms-item,.work_cta-separator');
 
-  // Calculate when this cell should animate based on its position
-  // Each cell animates when it reaches roughly 60% of the viewport
-  const cellTop = cell.offsetTop;
-  const viewportHeight = window.innerHeight;
-  const gridTop = workGrid.offsetTop;
-
-  // When the section first pins, the grid is at its natural position
-  // As we scroll/scrub, the grid moves upward
-  // We want to animate when cell reaches 60vh from the top
-
-  // Initial offset of cell from top of viewport when pin starts
-  const initialCellOffset = cellTop + gridTop;
-
-  // Distance the grid needs to move for this cell to reach 60vh
-  const distanceToAnimate = initialCellOffset - (viewportHeight * 0.6);
-
-  // Total distance the grid will travel
-  const totalGridTravel = workGrid.offsetHeight + gridTop - viewportHeight;
-
-  // Calculate timeline position (0 to 1.6 seconds)
-  const timelineProgress = Math.max(0, Math.min(1, distanceToAnimate / totalGridTravel));
-  const timelinePosition = timelineProgress * 1.6; // 1.6 is the duration
+  // Position this cell's animation at its segment
+  // Add 1 to index so first cell isn't at 0
+  const timelinePosition = segmentDuration * (index + 1);
 
   tl_workScrolling.from(innerCells, {
     y: '2em',
