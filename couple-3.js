@@ -834,25 +834,30 @@ let tl_workScrolling = gsap.timeline({
     let innerCells = cell.querySelectorAll('.grid-cell');
     //tl_workScrolling.add(
       gsap.from(innerCells, {
-      scrollTrigger: innerCells[0],
+      scrollTrigger: {
+        trigger: innerCells[0],
       start: "top 60%",
       end: "bottom 44%",
       y: '2em',
       autoAlpha: 0,
       stagger: 0.1,
-      toggleActions: "play none none reverse",
+      toggleActions: "play none none reverse"
+      }
 
   })
 //)
 });
 
 // Calculate the distance to move the grid so its bottom aligns with viewport bottom
-// Distance = grid height - viewport height
+// We need to account for: grid height + offset from parent top - viewport height
 tl_workScrolling.to(workGrid,{
   y: () => {
     const gridHeight = workGrid.offsetHeight;
     const viewportHeight = window.innerHeight;
-    return -(gridHeight - viewportHeight);
+    const gridTop = workGrid.offsetTop; // Distance from parent's top
+
+    // Total distance to move = grid height + its top offset - viewport height
+    return -(gridHeight + gridTop - viewportHeight);
   },
   duration:1.6,
   ease:"power1.inOut"
