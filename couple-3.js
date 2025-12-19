@@ -785,7 +785,7 @@ let masterTimeline;
   }
 }), calloutSection = document.querySelector('#callout-section'),
 calloutTitle = calloutSection.querySelector('#callout-header'),
-calloutSplit = new SplitText(calloutTitle, {type: "lines,words,chars"}),
+calloutSplit = new SplitText(calloutTitle, {type: "lines,words",mask: "lines"}),
 calloutButton = calloutSection.querySelector('.button');
 
 tl_calloutSection.from($(calloutTitle).add(calloutSplit.lines),{y:24, autoAlpha:0, stagger:0.08, ease:"power3.out"})
