@@ -742,10 +742,10 @@ let masterTimeline;
 }), calloutSection = document.querySelector('#callout-section'),
 calloutWrapper = calloutSection.querySelector('.container')
 calloutTitle = calloutSection.querySelector('#callout-header'),
-calloutSplit = new SplitText(calloutTitle, {type: "lines,words"}),
+calloutSplit = new SplitText(calloutTitle, {type: "lines,words",autoSplit: true}),
 calloutButton = calloutSection.querySelector('.button');
 
-tl_calloutSection.fromTo(calloutWrapper,{yPercent:-16},{yPercent:16,duration:1.6,ease:"power1.inOut"}).from(calloutSplit.lines,{yPercent:32, autoAlpha:0, stagger:0.12},"<")
+tl_calloutSection.fromTo(calloutWrapper,{yPercent:-10},{yPercent:16,duration:1.6,ease:"power1.inOut"}).from(calloutSplit.lines,{yPercent:32, autoAlpha:0, stagger:0.12},"<")
 .from(calloutSplit.words,{color:"#333333", autoAlpha:0, stagger:{amount:0.5}},"<")
 .from(calloutButton,{y:28, autoAlpha:0, duration:0.6, ease:"power2.out"}, ">-0.5");
 
