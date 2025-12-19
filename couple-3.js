@@ -918,9 +918,9 @@ gsap.utils
   let tl_ctaAnimation = gsap.timeline({
     scrollTrigger: {
       trigger: '#cta-section',
-      start: "top top", 
-      pin: true,
-      end: "+=150%",
+      start: "top 40%", 
+      //pin: true,
+      end: "+=55%",
       scrub: 1.5,
       //invalidateOnRefresh: true,
       //markers: true,
