@@ -834,7 +834,7 @@ let tl_workScrolling = gsap.timeline({
   scrollTrigger: {
     trigger: workSectionsWrapper,
     start: "top top",
-    end:"+=150%",
+    end:"+=140%",
     scrub:1.4,
     pin:true,
     invalidateOnRefresh: true
@@ -869,7 +869,7 @@ const viewportHeight = window.innerHeight;
 const gridTop = workGrid.offsetTop;
 const totalGridTravel = gridHeight + gridTop - viewportHeight;
 const timelineRatio = (gridHeight - viewportHeight) / totalGridTravel;
-const usableTimelineDuration = 1.2 * timelineRatio; // Use proportional amount of the 1.6s timeline
+const usableTimelineDuration = 1.4 * timelineRatio; // Use proportional amount of the 1.6s timeline
 
 // Divide the usable duration into equal segments
 const segmentDuration = usableTimelineDuration / (numCells + 1);
@@ -884,8 +884,8 @@ workGridCells.forEach((cell, index) => {
   tl_workScrolling.from(innerCells, {
     y: '2em',
     autoAlpha: 0,
-    stagger: 0.1,
-    duration: 0.6,
+    stagger: 0.07,
+    duration: 0.5,
     ease: "power2.out"
   }, timelinePosition);
 });
