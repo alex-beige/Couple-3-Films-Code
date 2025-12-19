@@ -1,6 +1,31 @@
-console.log("Party Time 2.2.3 pages");
+console.log("Party Time 2.2.2 pages");
 
+// ====================================
+// ANIMATING P5.JS BACKGROUND DOTS - QUICK REFERENCE
+// ====================================
+// The p5.js dot grid (couple-3-bg.js) exposes a global API: window.p5DotGrid
+//
+// Available properties & methods:
+//   window.p5DotGrid.colors.base       - Base dot color (string)
+//   window.p5DotGrid.colors.hover      - Hover dot color (string)
+//   window.p5DotGrid.colors.background - Canvas background color (string or null)
+//   window.p5DotGrid.setBaseColor(color)
+//   window.p5DotGrid.setHoverColor(color)
+//   window.p5DotGrid.setBackgroundColor(color)
+//   window.p5DotGrid.resetColors()
+//
+// GSAP Usage:
+//   gsap.to(window.p5DotGrid.colors, { base: "#ffffff", duration: 2 })
+//   gsap.to(window.p5DotGrid.colors, { background: "#000000", duration: 1 })
+//
+// IMPORTANT: Use hex (#ffffff) or rgb(a) colors for smooth GSAP interpolation.
+//            HSLA strings may cause snapping instead of smooth transitions.
+//
+// See examples at the bottom of this file (search for "BACKGROUND DOT ANIMATIONS")
+// ====================================
 
+// Prevent browser from restoring scroll position on page reload
+// This ensures animations always start from the top
 if (history.scrollRestoration) {
   history.scrollRestoration = "manual";
 }
