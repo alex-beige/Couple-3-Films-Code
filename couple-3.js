@@ -848,7 +848,7 @@ let tl_workScrolling = gsap.timeline({
     //tl_workScrolling.add(
       gsap.from(innerCells, {
       scrollTrigger: {
-        trigger: innerCells[0],
+        trigger: cell,
       start: "top 60%",
       end: "bottom 44%",
       y: '2em',
