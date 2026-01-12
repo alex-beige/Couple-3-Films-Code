@@ -113,37 +113,50 @@ document.addEventListener("DOMContentLoaded", function () {
     return positions;
   };
 
-  // Add active class toggles for each indicator and cms item
+  // Add active class toggles for each indicator and cms item using timeline labels
+  const positions = calculateIndicatorPositions();
+
   indicators.forEach((indicator, index) => {
     const correspondingItem = cmsItems[index];
 
-    if (correspondingItem) {
-      // Get the exact timeline position for this indicator
-      const timelineProgress = calculateIndicatorPositions()[index];
+    if (correspondingItem && index > 0) { // Skip first since it's already active
+      const timelineProgress = positions[index];
 
-      // Create a small tween at this position to handle forward and reverse properly
-      workPage_tl.to({}, {
-        duration: 0.01,
-        onStart: () => {
-          // This fires when scrubbing forward into this point
-          indicators.forEach(ind => ind.classList.remove('is-active'));
-          cmsItems.forEach(item => item.classList.remove('is-active'));
-          indicator.classList.add('is-active');
-          correspondingItem.classList.add('is-active');
-        },
-        onReverseComplete: () => {
-          // This fires when scrubbing backward past this point
-          // Reactivate the previous indicator/item
-          if (index > 0) {
-            indicators.forEach(ind => ind.classList.remove('is-active'));
-            cmsItems.forEach(item => item.classList.remove('is-active'));
-            indicators[index - 1].classList.add('is-active');
-            cmsItems[index - 1].classList.add('is-active');
-          }
-        }
-      }, timelineProgress);
+      // Add a callback that checks scroll direction
+      workPage_tl.call(() => {
+        indicators.forEach(ind => ind.classList.remove('is-active'));
+        cmsItems.forEach(item => item.classList.remove('is-active'));
+        indicator.classList.add('is-active');
+        correspondingItem.classList.add('is-active');
+      }, null, timelineProgress);
     }
   });
+
+  // Handle reverse scrolling by monitoring timeline progress
+  workPage_tl.scrollTrigger.vars.onUpdate = (self) => {
+    const progress = self.progress;
+    const positions = calculateIndicatorPositions();
+
+    // Find which indicator should be active based on current progress
+    let activeIndex = 0;
+    for (let i = positions.length - 1; i >= 0; i--) {
+      if (progress >= positions[i]) {
+        activeIndex = i;
+        break;
+      }
+    }
+
+    // Update active states
+    indicators.forEach((ind, i) => {
+      if (i === activeIndex) {
+        ind.classList.add('is-active');
+        if (cmsItems[i]) cmsItems[i].classList.add('is-active');
+      } else {
+        ind.classList.remove('is-active');
+        if (cmsItems[i]) cmsItems[i].classList.remove('is-active');
+      }
+    });
+  };
 });
 // const section = document.querySelector(".work-page_grid.is-category-page");
 
