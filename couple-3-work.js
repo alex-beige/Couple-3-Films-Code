@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Account for the title section and spacer that offset the starting position
     const titleHeight = titleSection ? titleSection.offsetHeight : 0;
     const spacerHeight = spacerLarge ? spacerLarge.offsetHeight : 0;
-    const offsetHeight = spacerHeight; //titleHeight + spacerHeight;
+    const offsetHeight = titleHeight; //titleHeight + spacerHeight;
 
     // Get the triangle indicator position (distance from top where it sits)
     const triangleOffset = triangleIndicator ? triangleIndicator.offsetTop : 0;
