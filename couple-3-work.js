@@ -11,9 +11,12 @@ document.addEventListener("DOMContentLoaded", function () {
   const cmsItems = gsap.utils.toArray(".work_cms-item");
   const sectionWrapper = document.querySelector("#category-wrapper");
   const indicatorsColumn = sectionWrapper.querySelector(".work-page_nav-main");
+  const titleSection = sectionWrapper.querySelector(".orange-angle-wrap.page-intro");
+  const spacerLarge = sectionWrapper.querySelector(".spacer-large");
 
   // Calculate the scroll distance for indicators
   // We need to move the indicators column up by the total height of all indicators
+  // accounting for the title section and spacer that come before the columns
   const calculateIndicatorScrollDistance = () => {
     if (!indicators.length) return 0;
 
@@ -23,7 +26,13 @@ document.addEventListener("DOMContentLoaded", function () {
       totalHeight += indicator.offsetHeight;
     });
 
-    return -totalHeight;
+    // Account for the title section and spacer that offset the starting position
+    const titleHeight = titleSection ? titleSection.offsetHeight : 0;
+    const spacerHeight = spacerLarge ? spacerLarge.offsetHeight : 0;
+    const offsetHeight = titleHeight + spacerHeight;
+
+    // We need to move up by total indicator height minus the offset
+    return -(totalHeight - offsetHeight);
   };
 
   // Create main timeline with pinning
