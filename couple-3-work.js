@@ -47,6 +47,24 @@ document.addEventListener("DOMContentLoaded", function () {
       //pinSpacing: false,
       invalidateOnRefresh: true, // Recalculate on resize
       // markers: true,
+      onLeave: () => {
+        // Keep the last indicator and item active when unpinning
+        if (indicators.length > 0 && cmsItems.length > 0) {
+          indicators.forEach(ind => ind.classList.remove('is-active'));
+          cmsItems.forEach(item => item.classList.remove('is-active'));
+          indicators[indicators.length - 1].classList.add('is-active');
+          cmsItems[cmsItems.length - 1].classList.add('is-active');
+        }
+      },
+      onEnterBack: () => {
+        // Restore the last indicator when scrolling back into the pinned area
+        if (indicators.length > 0 && cmsItems.length > 0) {
+          indicators.forEach(ind => ind.classList.remove('is-active'));
+          cmsItems.forEach(item => item.classList.remove('is-active'));
+          indicators[indicators.length - 1].classList.add('is-active');
+          cmsItems[cmsItems.length - 1].classList.add('is-active');
+        }
+      }
     },
   });
 
@@ -74,18 +92,21 @@ document.addEventListener("DOMContentLoaded", function () {
     const spacerHeight = spacerLarge ? spacerLarge.offsetHeight : 0;
     const headerOffset = titleHeight + spacerHeight;
 
+    // Get total scroll distance (absolute value)
+    const totalScrollDistance = Math.abs(calculateIndicatorScrollDistance());
+
     let accumulatedHeight = 0;
     const positions = [];
 
     indicators.forEach((indicator, index) => {
       if (index === 0) {
-        // First indicator: transition when triangle reaches its center
-        const halfHeight = indicator.offsetHeight / 2;
-        positions.push((halfHeight + headerOffset) / calculateIndicatorScrollDistance());
+        // First indicator: starts active at position 0
+        positions.push(0);
       } else {
         // Other indicators: transition when triangle reaches bottom edge of previous indicator
         accumulatedHeight += indicators[index - 1].offsetHeight;
-        positions.push((accumulatedHeight + headerOffset) / calculateIndicatorScrollDistance());
+        // Divide by total scroll distance to get normalized position (0-1)
+        positions.push(accumulatedHeight / totalScrollDistance);
       }
     });
 
