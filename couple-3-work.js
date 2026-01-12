@@ -104,26 +104,7 @@ document.addEventListener("DOMContentLoaded", function () {
     return positions;
   };
 
-  // Add active class toggles for each indicator and cms item using timeline labels
-  const positions = calculateIndicatorPositions();
-
-  indicators.forEach((indicator, index) => {
-    const correspondingItem = cmsItems[index];
-
-    if (correspondingItem && index > 0) { // Skip first since it's already active
-      const timelineProgress = positions[index];
-
-      // Add a callback that checks scroll direction
-      workPage_tl.call(() => {
-        indicators.forEach(ind => ind.classList.remove('is-active'));
-        cmsItems.forEach(item => item.classList.remove('is-active'));
-        indicator.classList.add('is-active');
-        correspondingItem.classList.add('is-active');
-      }, null, timelineProgress);
-    }
-  });
-
-  // Handle reverse scrolling by monitoring timeline progress
+  // Handle both forward and reverse scrolling by monitoring timeline progress
   workPage_tl.scrollTrigger.vars.onUpdate = (self) => {
     const progress = self.progress;
     const positions = calculateIndicatorPositions();
@@ -137,12 +118,15 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     }
 
-    // Update active states
+    // Update active states - only change if different from current
     indicators.forEach((ind, i) => {
-      if (i === activeIndex) {
+      const shouldBeActive = (i === activeIndex);
+      const isActive = ind.classList.contains('is-active');
+
+      if (shouldBeActive && !isActive) {
         ind.classList.add('is-active');
         if (cmsItems[i]) cmsItems[i].classList.add('is-active');
-      } else {
+      } else if (!shouldBeActive && isActive) {
         ind.classList.remove('is-active');
         if (cmsItems[i]) cmsItems[i].classList.remove('is-active');
       }
