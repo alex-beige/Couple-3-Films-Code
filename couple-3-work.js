@@ -34,6 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
       end: "+=300%",
       scrub: 1.5,
       pin: true,
+      pinSpacing: false,
       invalidateOnRefresh: true, // Recalculate on resize
       // markers: true,
     },
@@ -48,14 +49,26 @@ document.addEventListener("DOMContentLoaded", function () {
     }, 0); // Start at beginning of timeline
   }
 
+  // Set first cms item to be visible initially
+  if (cmsItems.length > 0) {
+    gsap.set(cmsItems[0], { opacity: 1, y: 0 });
+  }
+
   // Add fade-in animations for each cms item, coordinated with indicator positions
   indicators.forEach((indicator, index) => {
     const correspondingItem = cmsItems[index];
 
     if (correspondingItem) {
+      // Skip the first item since it's already visible
+      if (index === 0) return;
+
       // Calculate when this indicator should be in the "active" zone
-      // Position these animations along the timeline proportionally
-      const timelineProgress = index / (indicators.length - 1);
+      // The first indicator has half the active space (from top to center)
+      // All other indicators have full space (from top to bottom edge)
+
+      // For index 1, it should trigger when triangle hits bottom of item 0
+      // For index 2, it should trigger when triangle hits bottom of item 1, etc.
+      const timelineProgress = (index - 0.5) / (indicators.length - 1);
 
       workPage_tl.fromTo(
         correspondingItem,
