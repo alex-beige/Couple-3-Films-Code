@@ -88,10 +88,6 @@ document.addEventListener("DOMContentLoaded", function () {
   // Calculate the exact timeline position for each indicator based on accumulated heights
   // This accounts for variable indicator heights
   const calculateIndicatorPositions = () => {
-    const titleHeight = titleSection ? titleSection.offsetHeight : 0;
-    const spacerHeight = spacerLarge ? spacerLarge.offsetHeight : 0;
-    const headerOffset = titleHeight + spacerHeight;
-
     // Get total scroll distance (absolute value)
     const totalScrollDistance = Math.abs(calculateIndicatorScrollDistance());
 
@@ -99,17 +95,10 @@ document.addEventListener("DOMContentLoaded", function () {
     const positions = [];
 
     indicators.forEach((indicator, index) => {
-      if (index === 0) {
-        // First indicator: always active from the start, use a negative value
-        // so it remains active even when scrolling back to the very beginning
-        positions.push(-0.01);
-        accumulatedHeight += indicator.offsetHeight;
-      } else {
-        // Other indicators: transition when triangle reaches TOP edge of current indicator
-        // accumulatedHeight is the distance from the starting point to this indicator's top
-        positions.push(accumulatedHeight / totalScrollDistance);
-        accumulatedHeight += indicator.offsetHeight;
-      }
+      // Each indicator activates when we've scrolled to its top edge
+      // accumulatedHeight represents the distance to the top of this indicator
+      positions.push(accumulatedHeight / totalScrollDistance);
+      accumulatedHeight += indicator.offsetHeight;
     });
 
     return positions;
