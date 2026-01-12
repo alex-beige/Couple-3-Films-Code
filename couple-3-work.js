@@ -19,6 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Split text into words for stagger animation
   const split_h1 = new SplitText(elements.heroText, { type: "words" });
   const tl_intro = gsap.timeline({});
+
   tl_intro
     // Fade in brand wrapper
     .from(".orange-angle-wrap.page-intro", {
@@ -28,10 +29,10 @@ document.addEventListener("DOMContentLoaded", function () {
     .from(
       $(elements.heroText).add(split_h1.words),
       {
-        duration: CONFIG.intro.textDuration,
+        duration: 1,
         autoAlpha: 0,
-        yPercent: CONFIG.intro.textYPercent,
-        stagger: CONFIG.intro.textStagger,
+        yPercent: 18,
+        stagger: 0.08,
         ease: "power3",
       },
       ">"
@@ -40,9 +41,9 @@ document.addEventListener("DOMContentLoaded", function () {
     .from(
       elements.introElements,
       {
-        y: CONFIG.intro.elementY,
+        y: 24,
         autoAlpha: 0,
-        stagger: CONFIG.intro.elementStagger,
+        stagger: 0.12,
         ease: "power2",
       },
       "<0.4"
