@@ -47,6 +47,46 @@ document.addEventListener("DOMContentLoaded", function () {
       //pinSpacing: false,
       invalidateOnRefresh: true, // Recalculate on resize
       // markers: true,
+      onUpdate: (self) => {
+        const progress = self.progress;
+        const positions = calculateIndicatorPositions();
+
+        // Debug: log positions on first update
+        if (!window.debugPositionsLogged) {
+          console.log('Indicator positions:', positions);
+          console.log('Total scroll distance:', Math.abs(calculateIndicatorScrollDistance()));
+          window.debugPositionsLogged = true;
+        }
+
+        // Find which indicator should be active based on current progress
+        let activeIndex = 0;
+        for (let i = positions.length - 1; i >= 0; i--) {
+          if (progress >= positions[i]) {
+            activeIndex = i;
+            break;
+          }
+        }
+
+        // Debug: log when activeIndex changes
+        if (window.lastActiveIndex !== activeIndex) {
+          console.log(`Progress: ${progress.toFixed(3)}, Active index: ${activeIndex}`);
+          window.lastActiveIndex = activeIndex;
+        }
+
+        // Update active states - only change if different from current
+        indicators.forEach((ind, i) => {
+          const shouldBeActive = (i === activeIndex);
+          const isActive = ind.classList.contains('is-active');
+
+          if (shouldBeActive && !isActive) {
+            ind.classList.add('is-active');
+            if (cmsItems[i]) cmsItems[i].classList.add('is-active');
+          } else if (!shouldBeActive && isActive) {
+            ind.classList.remove('is-active');
+            if (cmsItems[i]) cmsItems[i].classList.remove('is-active');
+          }
+        });
+      },
       onLeave: () => {
         // Keep the last indicator and item active when unpinning
         if (indicators.length > 0 && cmsItems.length > 0) {
@@ -102,48 +142,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     return positions;
-  };
-
-  // Handle both forward and reverse scrolling by monitoring timeline progress
-  workPage_tl.scrollTrigger.vars.onUpdate = (self) => {
-    const progress = self.progress;
-    const positions = calculateIndicatorPositions();
-
-    // Debug: log positions on first update
-    if (!window.debugPositionsLogged) {
-      console.log('Indicator positions:', positions);
-      console.log('Total scroll distance:', Math.abs(calculateIndicatorScrollDistance()));
-      window.debugPositionsLogged = true;
-    }
-
-    // Find which indicator should be active based on current progress
-    let activeIndex = 0;
-    for (let i = positions.length - 1; i >= 0; i--) {
-      if (progress >= positions[i]) {
-        activeIndex = i;
-        break;
-      }
-    }
-
-    // Debug: log when activeIndex changes
-    if (window.lastActiveIndex !== activeIndex) {
-      console.log(`Progress: ${progress.toFixed(3)}, Active index: ${activeIndex}`);
-      window.lastActiveIndex = activeIndex;
-    }
-
-    // Update active states - only change if different from current
-    indicators.forEach((ind, i) => {
-      const shouldBeActive = (i === activeIndex);
-      const isActive = ind.classList.contains('is-active');
-
-      if (shouldBeActive && !isActive) {
-        ind.classList.add('is-active');
-        if (cmsItems[i]) cmsItems[i].classList.add('is-active');
-      } else if (!shouldBeActive && isActive) {
-        ind.classList.remove('is-active');
-        if (cmsItems[i]) cmsItems[i].classList.remove('is-active');
-      }
-    });
   };
 });
 // const section = document.querySelector(".work-page_grid.is-category-page");
