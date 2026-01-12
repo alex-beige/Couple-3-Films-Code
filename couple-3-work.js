@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
       {
         y: 24,
         autoAlpha: 0,
-        stagger: 0.12,
+        stagger: 0.2,
         ease: "power2",
       },
       "<0.4"
@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", function () {
         autoAlpha: 0,
         ease: "power3",
       },
-      "<0.3"
+      ">-0.4"
     );
 
   // Get all indicator elements and corresponding CMS items
