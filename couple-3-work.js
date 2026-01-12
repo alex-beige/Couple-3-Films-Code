@@ -109,6 +109,13 @@ document.addEventListener("DOMContentLoaded", function () {
     const progress = self.progress;
     const positions = calculateIndicatorPositions();
 
+    // Debug: log positions on first update
+    if (!window.debugPositionsLogged) {
+      console.log('Indicator positions:', positions);
+      console.log('Total scroll distance:', Math.abs(calculateIndicatorScrollDistance()));
+      window.debugPositionsLogged = true;
+    }
+
     // Find which indicator should be active based on current progress
     let activeIndex = 0;
     for (let i = positions.length - 1; i >= 0; i--) {
@@ -116,6 +123,12 @@ document.addEventListener("DOMContentLoaded", function () {
         activeIndex = i;
         break;
       }
+    }
+
+    // Debug: log when activeIndex changes
+    if (window.lastActiveIndex !== activeIndex) {
+      console.log(`Progress: ${progress.toFixed(3)}, Active index: ${activeIndex}`);
+      window.lastActiveIndex = activeIndex;
     }
 
     // Update active states - only change if different from current
