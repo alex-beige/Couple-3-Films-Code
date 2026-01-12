@@ -68,31 +68,6 @@ document.addEventListener("DOMContentLoaded", function () {
     },
   });
 
-  // Pin the triangle indicator for the duration of the animation
-  if (triangleIndicator) {
-    // Store the initial position
-    const triangleInitialY = triangleIndicator.getBoundingClientRect().top;
-
-    // Pin it by removing its sticky positioning and using GSAP to fix it in place
-    ScrollTrigger.create({
-      trigger: sectionWrapper,
-      start: "top 100",
-      end: "+=300%",
-      onEnter: () => {
-        gsap.set(triangleIndicator, { position: "fixed", top: triangleIndicator.getBoundingClientRect().top });
-      },
-      onLeave: () => {
-        gsap.set(triangleIndicator, { position: "", top: "" });
-      },
-      onEnterBack: () => {
-        gsap.set(triangleIndicator, { position: "fixed", top: triangleIndicator.getBoundingClientRect().top });
-      },
-      onLeaveBack: () => {
-        gsap.set(triangleIndicator, { position: "", top: "" });
-      }
-    });
-  }
-
   // Add indicators scrolling animation to timeline
   if (indicatorsColumn) {
     workPage_tl.to(indicatorsColumn, {
