@@ -13,12 +13,17 @@ document.addEventListener("DOMContentLoaded", function () {
   const indicatorsColumn = sectionWrapper.querySelector(".work-page_nav-main");
 
   // Calculate the scroll distance for indicators
-  // We need to move the indicators up by their total height minus the visible viewport height
+  // We need to move the indicators column up by the total height of all indicators
   const calculateIndicatorScrollDistance = () => {
-    if (!indicatorsColumn) return 0;
-    const columnHeight = indicatorsColumn.scrollHeight;
-    const visibleHeight = window.innerHeight;
-    return -(columnHeight - visibleHeight);
+    if (!indicators.length) return 0;
+
+    // Sum up the height of all indicator elements
+    let totalHeight = 0;
+    indicators.forEach(indicator => {
+      totalHeight += indicator.offsetHeight;
+    });
+
+    return -totalHeight;
   };
 
   // Create main timeline with pinning
