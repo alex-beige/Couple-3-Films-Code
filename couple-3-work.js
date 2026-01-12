@@ -6,6 +6,57 @@ document.addEventListener("DOMContentLoaded", function () {
   });
   const mm = gsap.matchMedia();
 
+  // ====================================
+  // DOM ELEMENT REFERENCES
+  // ====================================
+  const elements = {
+    introContainer: document.querySelector(".standard-section:has(h1)"),
+  };
+
+  //elements.frame = elements.introContainer.querySelector(".hero-framing-wrap");
+  elements.heroText = elements.introContainer.querySelector("h1");
+  elements.introElements = elements.introContainer.querySelectorAll("[gsap-intro-el]");
+    // Split text into words for stagger animation
+  const split_h1 = new SplitText(elements.heroText, { type: "words" });
+
+  tl_intro
+    // Fade in brand wrapper
+    .from(".orange-angle-wrap.page-intro", {
+      autoAlpha: 0,
+    })
+    // Fade in hero text with stagger effect on words
+    .from(
+      $(elements.heroText).add(split_h1.words),
+      {
+        duration: CONFIG.intro.textDuration,
+        autoAlpha: 0,
+        yPercent: CONFIG.intro.textYPercent,
+        stagger: CONFIG.intro.textStagger,
+        ease: "power3",
+      },
+      ">"
+    )
+    // Fade in intro elements with stagger
+    .from(
+      elements.introElements,
+      {
+        y: CONFIG.intro.elementY,
+        autoAlpha: 0,
+        stagger: CONFIG.intro.elementStagger,
+        ease: "power2",
+      },
+      "<0.4"
+    )
+    // Fade in navigation
+    .from(
+      ".navwrapper",
+      {
+        autoAlpha: 0,
+        ease: "power3",
+      },
+      "<0.3"
+    );
+
   // Get all indicator elements and corresponding CMS items
   const indicators = gsap.utils.toArray(".work-page_title-item");
   const cmsItems = gsap.utils.toArray(".work_cms-item");
