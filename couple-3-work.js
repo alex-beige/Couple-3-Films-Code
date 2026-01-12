@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const workPage_tl = gsap.timeline({
     scrollTrigger: {
       trigger: sectionWrapper,
-      start: "top 100",
+      start: "top 80",
       end: "+=300%",
       scrub: 1.5,
       pin: true,
