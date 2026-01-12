@@ -32,8 +32,12 @@ document.addEventListener("DOMContentLoaded", function () {
     const spacerHeight = spacerLarge ? spacerLarge.offsetHeight : 0;
     const offsetHeight = titleHeight + spacerHeight;
 
-    // We need to move up by total indicator height minus the offset
-    return -(totalHeight - offsetHeight);
+    // Get the triangle indicator position (distance from top where it sits)
+    const triangleOffset = triangleIndicator ? triangleIndicator.offsetTop : 0;
+
+    // We need to move up by: total height - offset + triangle position
+    // This ensures the last indicator reaches the triangle position
+    return -(totalHeight - offsetHeight + triangleOffset);
   };
 
   // Create main timeline with pinning
@@ -55,6 +59,11 @@ document.addEventListener("DOMContentLoaded", function () {
         if (!window.debugPositionsLogged) {
           console.log('Indicator positions:', positions);
           console.log('Total scroll distance:', Math.abs(calculateIndicatorScrollDistance()));
+          console.log('Number of indicators:', indicators.length);
+          console.log('Number of cms items:', cmsItems.length);
+          indicators.forEach((ind, i) => {
+            console.log(`Indicator ${i} height:`, ind.offsetHeight);
+          });
           window.debugPositionsLogged = true;
         }
 
