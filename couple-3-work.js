@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const indicatorsColumn = sectionWrapper.querySelector(".work-page_nav-main");
   const titleSection = sectionWrapper.querySelector(".orange-angle-wrap.page-intro");
   const spacerLarge = sectionWrapper.querySelector(".spacer-large");
+  const triangleIndicator = document.querySelector(".vertical-active-indicator");
 
   // Calculate the scroll distance for indicators
   // We need to move the indicators column up by the total height of all indicators
@@ -66,15 +67,38 @@ document.addEventListener("DOMContentLoaded", function () {
     cmsItems[0].classList.add('is-active');
   }
 
+  // Calculate the exact timeline position for each indicator based on accumulated heights
+  // This accounts for variable indicator heights
+  const calculateIndicatorPositions = () => {
+    const titleHeight = titleSection ? titleSection.offsetHeight : 0;
+    const spacerHeight = spacerLarge ? spacerLarge.offsetHeight : 0;
+    const headerOffset = titleHeight + spacerHeight;
+
+    let accumulatedHeight = 0;
+    const positions = [];
+
+    indicators.forEach((indicator, index) => {
+      if (index === 0) {
+        // First indicator: transition when triangle reaches its center
+        const halfHeight = indicator.offsetHeight / 2;
+        positions.push((halfHeight + headerOffset) / calculateIndicatorScrollDistance());
+      } else {
+        // Other indicators: transition when triangle reaches bottom edge of previous indicator
+        accumulatedHeight += indicators[index - 1].offsetHeight;
+        positions.push((accumulatedHeight + headerOffset) / calculateIndicatorScrollDistance());
+      }
+    });
+
+    return positions;
+  };
+
   // Add active class toggles for each indicator and cms item
   indicators.forEach((indicator, index) => {
     const correspondingItem = cmsItems[index];
 
     if (correspondingItem) {
-      // Calculate when this indicator should be in the "active" zone
-      // The first indicator has half the active space (from top to center)
-      // All other indicators have full space (from top to bottom edge)
-      const timelineProgress = index === 0 ? 0 : (index - 0.5) / (indicators.length - 1);
+      // Get the exact timeline position for this indicator
+      const timelineProgress = calculateIndicatorPositions()[index];
 
       // Create a small tween at this position to handle forward and reverse properly
       workPage_tl.to({}, {
