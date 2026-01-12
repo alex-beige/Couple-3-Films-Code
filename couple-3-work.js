@@ -67,16 +67,27 @@ document.addEventListener("DOMContentLoaded", function () {
       // All other indicators have full space (from top to bottom edge)
       const timelineProgress = index === 0 ? 0 : (index - 0.5) / (indicators.length - 1);
 
-      // Add active class at the appropriate timeline position
-      workPage_tl.call(() => {
-        // Remove active class from all indicators and items
-        indicators.forEach(ind => ind.classList.remove('is-active'));
-        cmsItems.forEach(item => item.classList.remove('is-active'));
-
-        // Add active class to current indicator and item
-        indicator.classList.add('is-active');
-        correspondingItem.classList.add('is-active');
-      }, null, timelineProgress * 0.8);
+      // Create a small tween at this position to handle forward and reverse properly
+      workPage_tl.to({}, {
+        duration: 0.01,
+        onStart: () => {
+          // This fires when scrubbing forward into this point
+          indicators.forEach(ind => ind.classList.remove('is-active'));
+          cmsItems.forEach(item => item.classList.remove('is-active'));
+          indicator.classList.add('is-active');
+          correspondingItem.classList.add('is-active');
+        },
+        onReverseComplete: () => {
+          // This fires when scrubbing backward past this point
+          // Reactivate the previous indicator/item
+          if (index > 0) {
+            indicators.forEach(ind => ind.classList.remove('is-active'));
+            cmsItems.forEach(item => item.classList.remove('is-active'));
+            indicators[index - 1].classList.add('is-active');
+            cmsItems[index - 1].classList.add('is-active');
+          }
+        }
+      }, timelineProgress);
     }
   });
 });
