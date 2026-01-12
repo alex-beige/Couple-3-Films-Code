@@ -10,37 +10,61 @@ document.addEventListener("DOMContentLoaded", function () {
   const indicators = gsap.utils.toArray(".work-page_title-item");
   const cmsItems = gsap.utils.toArray(".work_cms-item");
   const sectionWrapper = document.querySelector("#category-wrapper");
+  const indicatorsColumn = sectionWrapper.querySelector(".work-page_nav-main");
+
+  // Calculate the scroll distance for indicators
+  // We need to move the indicators up by their total height minus the visible viewport height
+  const calculateIndicatorScrollDistance = () => {
+    if (!indicatorsColumn) return 0;
+    const columnHeight = indicatorsColumn.scrollHeight;
+    const visibleHeight = window.innerHeight;
+    return -(columnHeight - visibleHeight);
+  };
+
+  // Create main timeline with pinning
   const workPage_tl = gsap.timeline({
     scrollTrigger: {
       trigger: sectionWrapper,
-        start: "top 100",
-        end: "+=300%",
-        scrub: 1.5,
-        // markers: true,
+      start: "top 100",
+      end: "+=300%",
+      scrub: 1.5,
+      pin: true,
+      invalidateOnRefresh: true, // Recalculate on resize
+      // markers: true,
     },
   });
 
+  // Add indicators scrolling animation to timeline
+  if (indicatorsColumn) {
+    workPage_tl.to(indicatorsColumn, {
+      y: calculateIndicatorScrollDistance,
+      ease: "none", // Linear movement for scroll effect
+      duration: 1, // This will be stretched by scrub
+    }, 0); // Start at beginning of timeline
+  }
 
+  // Add fade-in animations for each cms item, coordinated with indicator positions
   indicators.forEach((indicator, index) => {
     const correspondingItem = cmsItems[index];
 
     if (correspondingItem) {
-      gsap.fromTo(
+      // Calculate when this indicator should be in the "active" zone
+      // Position these animations along the timeline proportionally
+      const timelineProgress = index / (indicators.length - 1);
+
+      workPage_tl.fromTo(
         correspondingItem,
         {
           opacity: 0,
+          y: 20, // Add subtle upward movement
         },
         {
           opacity: 1,
-          duration: 0.6, // Control animation speed
-          scrollTrigger: {
-            trigger: indicator,
-            start: "top -60",
-            end: "bottom top",
-            toggleActions: "play reverse play reverse", // Fixed syntax
-            //  markers: true,
-          },
-        }
+          y: 0,
+          duration: 0.3, // Shortened duration within scrubbed timeline
+          ease: "power2.out",
+        },
+        timelineProgress * 0.8 // Spread across 80% of timeline
       );
     }
   });
