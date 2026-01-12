@@ -100,13 +100,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
     indicators.forEach((indicator, index) => {
       if (index === 0) {
-        // First indicator: starts active at position 0
-        positions.push(0);
+        // First indicator: always active from the start, use a negative value
+        // so it remains active even when scrolling back to the very beginning
+        positions.push(-0.01);
+        accumulatedHeight += indicator.offsetHeight;
       } else {
-        // Other indicators: transition when triangle reaches bottom edge of previous indicator
-        accumulatedHeight += indicators[index - 1].offsetHeight;
-        // Divide by total scroll distance to get normalized position (0-1)
+        // Other indicators: transition when triangle reaches TOP edge of current indicator
+        // accumulatedHeight is the distance from the starting point to this indicator's top
         positions.push(accumulatedHeight / totalScrollDistance);
+        accumulatedHeight += indicator.offsetHeight;
       }
     });
 
