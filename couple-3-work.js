@@ -91,7 +91,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Get total scroll distance (absolute value)
     const totalScrollDistance = Math.abs(calculateIndicatorScrollDistance());
 
-    let accumulatedHeight = 0;
+    let accumulatedHeight = -40;
     const positions = [];
 
     indicators.forEach((indicator, index) => {
