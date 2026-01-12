@@ -12,8 +12,8 @@ document.addEventListener("DOMContentLoaded", function () {
   const sectionWrapper = document.querySelector("#category-wrapper");
   const indicatorsColumn = sectionWrapper.querySelector(".work-page_nav-main");
   const titleSection = sectionWrapper.querySelector(".orange-angle-wrap.page-intro");
-  const spacerLarge = sectionWrapper.querySelector(".spacer-large");
-  const triangleIndicator = document.querySelector(".vertical-active-indicator");
+  //const spacerLarge = sectionWrapper.querySelector(".spacer-large");
+  //const triangleIndicator = document.querySelector(".vertical-active-indicator");
 
   // Calculate the scroll distance for indicators
   // We need to move the indicators column up by the total height of all indicators
