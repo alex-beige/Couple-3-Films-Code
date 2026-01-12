@@ -144,9 +144,16 @@ document.addEventListener("DOMContentLoaded", function () {
     const positions = [];
 
     indicators.forEach((indicator, index) => {
-      // Each indicator activates when we've scrolled to its top edge
-      // accumulatedHeight represents the distance to the top of this indicator
-      positions.push(accumulatedHeight / totalScrollDistance);
+      if (index === 0) {
+        // First indicator: activates at the top
+        positions.push(0);
+      } else {
+        // Other indicators: activate at the center of the previous indicator
+        // accumulatedHeight is at the top of current indicator
+        // Subtract half the height of the previous indicator
+        const previousIndicatorHalfHeight = indicators[index - 1].offsetHeight / 2;
+        positions.push((accumulatedHeight - previousIndicatorHalfHeight) / totalScrollDistance);
+      }
       accumulatedHeight += indicator.offsetHeight;
     });
 
