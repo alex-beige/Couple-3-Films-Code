@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
       end: "+=300%",
       scrub: 1.5,
       pin: true,
-      pinSpacing: false,
+      //pinSpacing: false,
       invalidateOnRefresh: true, // Recalculate on resize
       // markers: true,
     },
@@ -49,41 +49,34 @@ document.addEventListener("DOMContentLoaded", function () {
     }, 0); // Start at beginning of timeline
   }
 
-  // Set first cms item to be visible initially
+  // Set first indicator and cms item as active initially
+  if (indicators.length > 0) {
+    indicators[0].classList.add('is-active');
+  }
   if (cmsItems.length > 0) {
-    gsap.set(cmsItems[0], { opacity: 1, y: 0 });
+    cmsItems[0].classList.add('is-active');
   }
 
-  // Add fade-in animations for each cms item, coordinated with indicator positions
+  // Add active class toggles for each indicator and cms item
   indicators.forEach((indicator, index) => {
     const correspondingItem = cmsItems[index];
 
     if (correspondingItem) {
-      // Skip the first item since it's already visible
-      if (index === 0) return;
-
       // Calculate when this indicator should be in the "active" zone
       // The first indicator has half the active space (from top to center)
       // All other indicators have full space (from top to bottom edge)
+      const timelineProgress = index === 0 ? 0 : (index - 0.5) / (indicators.length - 1);
 
-      // For index 1, it should trigger when triangle hits bottom of item 0
-      // For index 2, it should trigger when triangle hits bottom of item 1, etc.
-      const timelineProgress = (index - 0.5) / (indicators.length - 1);
+      // Add active class at the appropriate timeline position
+      workPage_tl.call(() => {
+        // Remove active class from all indicators and items
+        indicators.forEach(ind => ind.classList.remove('is-active'));
+        cmsItems.forEach(item => item.classList.remove('is-active'));
 
-      workPage_tl.fromTo(
-        correspondingItem,
-        {
-          opacity: 0,
-          y: 20, // Add subtle upward movement
-        },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.3, // Shortened duration within scrubbed timeline
-          ease: "power2.out",
-        },
-        timelineProgress * 0.8 // Spread across 80% of timeline
-      );
+        // Add active class to current indicator and item
+        indicator.classList.add('is-active');
+        correspondingItem.classList.add('is-active');
+      }, null, timelineProgress * 0.8);
     }
   });
 });
