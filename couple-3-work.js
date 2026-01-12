@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
   elements.introElements = elements.introContainer.querySelectorAll("[gsap-intro-el]");
     // Split text into words for stagger animation
   const split_h1 = new SplitText(elements.heroText, { type: "words" });
-
+  const tl_intro = gsap.timeline({});
   tl_intro
     // Fade in brand wrapper
     .from(".orange-angle-wrap.page-intro", {
