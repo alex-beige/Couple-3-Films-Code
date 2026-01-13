@@ -271,10 +271,12 @@ console.log("AB Web Dev");
     
     $wrapper.on('mouseenter', function() {
       player.play();
+      console.log("playing");
     });
     
     $wrapper.on('mouseleave', function() {
       player.pause();
+         console.log("pausing");
     });
   });
 
