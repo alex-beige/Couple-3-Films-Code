@@ -252,3 +252,21 @@ console.log("AB Web Dev");
   // This avoids conflicts with Webflow and other scripts
   new window.p5(sketch);
 })();
+
+$(document).ready(function() {
+  $('.media-wrapper').each(function() {
+    const $wrapper = $(this);
+    const $iframe = $wrapper.find('.vimeo-embed');
+    const player = new Vimeo.Player($iframe[0]);
+    
+    $wrapper.on('mouseenter', function() {
+      player.play();
+      console.log('playing')
+    });
+    
+    $wrapper.on('mouseleave', function() {
+      player.pause();
+      console.log('paused dog')
+    });
+  });
+});

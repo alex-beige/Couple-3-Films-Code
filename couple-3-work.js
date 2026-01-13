@@ -129,7 +129,7 @@ gsap.to(carousel_lists, {
   };
 
   // amount to scroll
-  let scrollSizeEnd = indicators.length * 56;
+  let scrollSizeEnd = indicators.length * 52;
   console.log("scrollSizeEnd:", scrollSizeEnd);
 
   // Create main timeline with pinning
