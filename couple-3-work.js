@@ -104,7 +104,7 @@ document.addEventListener("DOMContentLoaded", function () {
   };
 
   // amount to scroll
-  let scrollSizeEnd = indicators.length * 60;
+  let scrollSizeEnd = indicators.length * 70;
 
   // Create main timeline with pinning
   const workPage_tl = gsap.timeline({
