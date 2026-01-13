@@ -255,7 +255,7 @@ console.log("AB Web Dev");
 
 
  
-
+/*
   $('.media-wrapper').each(function() {
     const $wrapper = $(this);
     const $iframe = $wrapper.find('.vimeo-embed');
@@ -287,5 +287,4 @@ console.log("AB Web Dev");
       }
     });
   });
-
-
+*/
