@@ -254,18 +254,27 @@ console.log("AB Web Dev");
 })();
 
 
+ 
   $('.media-wrapper').each(function() {
     const $wrapper = $(this);
     const $iframe = $wrapper.find('.vimeo-embed');
     const player = new Vimeo.Player($iframe[0]);
     
+    // Preload: play briefly then pause
+    player.play().then(function() {
+      // Give it a moment to actually load the video
+      setTimeout(function() {
+        player.pause();
+        player.setCurrentTime(0); // Reset to beginning
+      }, 100);
+    });
+    
     $wrapper.on('mouseenter', function() {
       player.play();
-      console.log('playing')
     });
     
     $wrapper.on('mouseleave', function() {
       player.pause();
-      console.log('paused dog')
     });
   });
+
