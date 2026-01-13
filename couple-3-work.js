@@ -129,16 +129,16 @@ gsap.to(carousel_lists, {
   };
 
   // amount to scroll
-  let scrollSizeEnd = indicators.length * 70;
+  let scrollSizeEnd = indicators.length * 56;
   console.log("scrollSizeEnd:", scrollSizeEnd);
 
   // Create main timeline with pinning
   const workPage_tl = gsap.timeline({
     scrollTrigger: {
       trigger: sectionWrapper,
-      start: "top 80",
+      start: "top 72",
       end: `+=${scrollSizeEnd}%`,
-      scrub: 1.5,
+      scrub: 1.4,
       pin: true,
       //pinSpacing: false,
       invalidateOnRefresh: true, // Recalculate on resize
