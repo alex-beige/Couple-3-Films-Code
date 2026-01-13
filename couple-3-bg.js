@@ -255,28 +255,35 @@ console.log("AB Web Dev");
 
 
  
+
   $('.media-wrapper').each(function() {
     const $wrapper = $(this);
     const $iframe = $wrapper.find('.vimeo-embed');
     const player = new Vimeo.Player($iframe[0]);
+    let isPreloading = true;
     
     // Preload: play briefly then pause
+    player.setVolume(0);
     player.play().then(function() {
-      // Give it a moment to actually load the video
       setTimeout(function() {
         player.pause();
-        player.setCurrentTime(0); // Reset to beginning
-      }, 100);
+        player.setCurrentTime(0);
+        player.setVolume(1);
+        isPreloading = false; // Preload complete
+      }, 500);
     });
     
     $wrapper.on('mouseenter', function() {
-      player.play();
-      console.log("playing");
+      if (!isPreloading) {
+        player.play();
+      }
     });
     
     $wrapper.on('mouseleave', function() {
-      player.pause();
-         console.log("pausing");
+      if (!isPreloading) {
+        player.pause();
+      }
     });
   });
+
 
