@@ -253,7 +253,7 @@ console.log("AB Web Dev");
   new window.p5(sketch);
 })();
 
-$(document).ready(function() {
+
   $('.media-wrapper').each(function() {
     const $wrapper = $(this);
     const $iframe = $wrapper.find('.vimeo-embed');
@@ -269,4 +269,3 @@ $(document).ready(function() {
       console.log('paused dog')
     });
   });
-});
