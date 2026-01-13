@@ -17,7 +17,8 @@ document.addEventListener("DOMContentLoaded", function () {
   elements.heroText = elements.introContainer.querySelector("h1");
   elements.introElements = elements.introContainer.querySelectorAll("[gsap-intro-el]");
     // Split text into words for stagger animation
-  const split_h1 = new SplitText(elements.heroText, { type: "words" });
+  const split_h1 = new SplitText(elements.heroText, { type: "words" }),
+  split_paragraph = new SplitText(elements.introContainer.querySelector(".rich-text p"), { type: "words,lines" });
   const tl_intro = gsap.timeline({});
 
   tl_intro
@@ -36,6 +37,15 @@ document.addEventListener("DOMContentLoaded", function () {
         ease: "power3",
       },
       ">"
+    ).from(
+      split_paragraph.lines,
+      {
+        y: 18,
+        autoAlpha: 0,
+        stagger: 0.06,
+        ease: "power2",
+      },
+      "<0.2"
     )
     // Fade in intro elements with stagger
     .from(
@@ -46,7 +56,7 @@ document.addEventListener("DOMContentLoaded", function () {
         stagger: 0.2,
         ease: "power2",
       },
-      "<0.4"
+      "<"
     )
     // Fade in navigation
     .from(
