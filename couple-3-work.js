@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const cmsItems = gsap.utils.toArray(".work_cms-item");
   const sectionWrapper = document.querySelector("#category-wrapper");
   const indicatorsColumn = sectionWrapper.querySelector(".work-page_nav-main");
-  const titleSection = sectionWrapper.querySelector(".orange-angle-wrap.page-intro");
+  const titleSection = sectionWrapper.querySelector(".orange-angle-wrap.page-intro,.orange-angle-wrap.page-intro-supporting");
   const spacerLarge = sectionWrapper.querySelector(".spacer-large");
   const triangleIndicator = document.querySelector(".vertical-active-indicator");
 
@@ -214,6 +214,68 @@ document.addEventListener("DOMContentLoaded", function () {
 
     return positions;
   };
+
+
+
+gsap.utils
+    .toArray("section[anim-section]")
+    .forEach((group, i) => {
+
+        let heading = group.querySelector(
+          ".h1-size,h2,.h2-size,h3:not(.h3-size-minor),.h3-size:not(p)"
+        ),
+        split_heading = new SplitText(heading, { type: "words" }),
+        subheading = group.querySelector(
+          ".spacer-heading-wrap ~ p"
+        ),
+        split_subheading = new SplitText(subheading, { type: "lines,words" }),
+        items = group.querySelectorAll("[gsap-anim-el]");
+        //gridCells = group.querySelectorAll(".work_section-grid > .grid-cell:not(:first-child)");
+
+
+      let tl_group = gsap.timeline({
+        scrollTrigger: {
+          trigger: group,
+          toggleActions: "play none none none",
+          start: "top 54%",
+        },
+      });
+   
+      tl_group
+        .from(
+          $(heading).add(split_heading.words),
+          {
+            duration: 1,
+            autoAlpha: 0,
+            y: 27,
+            stagger: 0.06,
+            //ease: "power3",
+          }
+        )
+        .from(
+          $(subheading).add(split_subheading.lines),
+          {
+            autoAlpha: 0,
+            duration: 0.8,
+            y: 24,
+            //autoAlpha: 0,
+            //ease: "power3",
+            stagger: 0.08,
+          },
+          "<0.24"
+        ).from(
+     items,
+      {
+        y: 24,
+        autoAlpha: 0,
+        stagger: 0.2,
+        ease: "power2",
+      },
+      "<0.4"
+    )
+
+  });
+
 
   //CTA
     let tl_ctaAnimation = gsap.timeline({
