@@ -72,6 +72,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const indicators = gsap.utils.toArray(".work-page_title-item");
   const cmsItems = gsap.utils.toArray(".work_cms-item");
   const sectionWrapper = document.querySelector("#category-wrapper");
+  if (sectionWrapper) {
   const indicatorsColumn = sectionWrapper.querySelector(".work-page_nav-main");
   const titleSection = sectionWrapper.querySelector(".orange-angle-wrap.page-intro,.orange-angle-wrap.page-intro-supporting");
   const spacerLarge = sectionWrapper.querySelector(".spacer-large");
@@ -225,7 +226,7 @@ document.addEventListener("DOMContentLoaded", function () {
     return positions;
   };
 
-
+  }
 
 gsap.utils
     .toArray("section[anim-section]")
