@@ -275,12 +275,14 @@ console.log("AB Web Dev");
     
     $wrapper.on('mouseenter', function() {
       if (!isPreloading) {
+        console.log("play video");
         player.play();
       }
     });
     
     $wrapper.on('mouseleave', function() {
       if (!isPreloading) {
+        console.log("pause video");
         player.pause();
       }
     });
