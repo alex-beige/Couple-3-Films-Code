@@ -67,6 +67,30 @@ document.addEventListener("DOMContentLoaded", function () {
       },
       ">-0.4"
     );
+// ====================================
+// Infinite Carousel for Logos
+// Assuming your HTML looks like:
+// <div class="carousel">
+//   <ul class="list">...</ul>
+//   <ul class="list">...</ul>
+// </div>
+
+const carousel_lists = gsap.utils.toArray('.carousel-wrap');
+const carousel_duration = 20; // adjust speed
+
+// Set second list immediately after first
+//gsap.set(carousel_lists[1], { xPercent: 100 });
+
+// Create infinite loop
+gsap.to(carousel_lists, {
+  xPercent: -100,
+  duration: carousel_duration,
+  ease: 'none',
+  repeat: -1,
+  modifiers: {
+    xPercent: gsap.utils.wrap(-100, 0)
+  }
+});
 
   // Get all indicator elements and corresponding CMS items
   const indicators = gsap.utils.toArray(".work-page_title-item");
