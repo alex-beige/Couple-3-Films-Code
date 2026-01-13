@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
       {
         y: 18,
         autoAlpha: 0,
-        stagger: 0.06,
+        stagger: 0.08,
         ease: "power2",
       },
       "<0.2"
