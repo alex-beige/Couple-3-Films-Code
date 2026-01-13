@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
   elements.introElements = elements.introContainer.querySelectorAll("[gsap-intro-el]");
     // Split text into words for stagger animation
   const split_h1 = new SplitText(elements.heroText, { type: "words" }),
-  split_paragraph = new SplitText(elements.introContainer.querySelector(".rich-text p"), { type: "words,lines" });
+  split_paragraph = new SplitText(elements.introContainer.querySelectorAll(".rich-text p"), { type: "words,lines" });
   const tl_intro = gsap.timeline({});
 
   tl_intro
