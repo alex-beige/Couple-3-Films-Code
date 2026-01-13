@@ -92,12 +92,15 @@ document.addEventListener("DOMContentLoaded", function () {
     return -(totalHeight - offsetHeight + triangleOffset);
   };
 
+  // amount to scroll
+  let scrollSizeEnd = indicators.length * 60;
+
   // Create main timeline with pinning
   const workPage_tl = gsap.timeline({
     scrollTrigger: {
       trigger: sectionWrapper,
       start: "top 80",
-      end: "+=300%",
+      end: `+=${scrollSizeEnd}`,
       scrub: 1.5,
       pin: true,
       //pinSpacing: false,
