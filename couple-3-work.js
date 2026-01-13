@@ -136,7 +136,7 @@ gsap.to(carousel_lists, {
     scrollTrigger: {
       trigger: sectionWrapper,
       start: "top 80",
-      end: `+=${scrollSizeEnd}`,
+      end: `+=${scrollSizeEnd}%`,
       scrub: 1.5,
       pin: true,
       //pinSpacing: false,
