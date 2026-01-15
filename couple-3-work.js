@@ -389,7 +389,7 @@ $('.rich-text-roles p').each(function() {
     // Check if there's a colon in the paragraph
     if (text.indexOf(':') !== -1) {
         // Find the first colon position
-        var colonIndex = text.indexOf(':');
+        var colonIndex = text.indexOf(':') + 1;
         
         // Split into label (before colon) and rest (colon + after)
         var label = text.substring(0, colonIndex);
