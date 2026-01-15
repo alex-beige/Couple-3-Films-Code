@@ -381,6 +381,29 @@ ctaButton.addEventListener('mouseleave', () => {
   }
 });
 
+//project pages - wrap role labels
+$('.rich-text-roles p').each(function() {
+    var $paragraph = $(this);
+    var text = $paragraph.html();
+    
+    // Check if there's a colon in the paragraph
+    if (text.indexOf(':') !== -1) {
+        // Find the first colon position
+        var colonIndex = text.indexOf(':');
+        
+        // Split into label (before colon) and rest (colon + after)
+        var label = text.substring(0, colonIndex);
+        var rest = text.substring(colonIndex);
+        
+        // Reconstruct with wrapped label
+        var newHTML = '<span class="roles-label">' + label + '</span>' + rest;
+        
+        // Update the paragraph
+        $paragraph.html(newHTML);
+    }
+});
+
+
   //footer nav indicator animation
   const footerNavMenu = document.querySelector('.footer_link-wrapper');
 const navLinks = document.querySelectorAll('.footer_link');
