@@ -160,6 +160,27 @@ $('.rich-text-roles p').each(function() {
     }
 });
 
+//project pages - set alt text as caption for recognition logos
+$('.carousel_item-logo.is-project.page').each(function() {
+    var $carouselItem = $(this);
+    
+    // Find the image and caption within this carousel item
+    var $img = $carouselItem.find('.carousel-img');
+    var $caption = $carouselItem.find('.recogniton-caption');
+    
+    // Get the alt text from the image
+    var altText = $img.attr('alt');
+    
+    // Check if alt text exists and is not empty
+    if (altText && altText.trim() !== '') {
+        // Update caption text and ensure it's visible
+        $caption.text(altText).show();
+    } else {
+        // Hide the caption if alt text is empty
+        $caption.hide();
+    }
+});
+
 
   //footer nav indicator animation
   const footerNavMenu = document.querySelector('.footer_link-wrapper');
