@@ -5,7 +5,50 @@ document.addEventListener("DOMContentLoaded", function () {
     ease: "power2",
   });
   const mm = gsap.matchMedia();
+ 
+  // lenis snippet
+if (typeof Lenis === 'undefined' || typeof gsap === 'undefined') {
+  console.error('Required libraries not loaded');
+  return;
+}
 
+const MOBILE_BREAKPOINT = 479;
+const isDesktop = window.matchMedia(`(min-width: ${MOBILE_BREAKPOINT}px)`).matches;
+
+if (isDesktop) {
+  // Initialize Lenis with optimized settings
+  const lenis = new Lenis({
+    duration: 1.2,
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    orientation: 'vertical',
+    gestureOrientation: 'vertical',
+    smoothWheel: true,
+    wheelMultiplier: 1,
+    smoothTouch: false,
+    infinite: false,
+  });
+
+  // Sync with ScrollTrigger
+  lenis.on('scroll', ScrollTrigger.update);
+
+  // Use requestAnimationFrame for better performance
+  gsap.ticker.add((time) => {
+    lenis.raf(time * 1000);
+  });
+
+  // Prevent memory leaks - cleanup on page unload
+  window.addEventListener('beforeunload', () => {
+    lenis.destroy();
+  });
+  
+} else {
+  console.log('Mobile view detected - smooth scroll disabled');
+}
+
+// Configure ScrollTrigger
+ScrollTrigger.config({
+  ignoreMobileResize: true
+});
   // ====================================
   // DOM ELEMENT REFERENCES
   // ====================================

@@ -5,7 +5,9 @@ document.addEventListener("DOMContentLoaded", function () {
     ease: "power2",
   });
   const mm = gsap.matchMedia();
-      // Check if dependencies are loaded
+      
+  
+  // lenis snippet
 if (typeof Lenis === 'undefined' || typeof gsap === 'undefined') {
   console.error('Required libraries not loaded');
   return;
@@ -48,6 +50,8 @@ if (isDesktop) {
 ScrollTrigger.config({
   ignoreMobileResize: true
 });
+
+
   // ====================================
   // DOM ELEMENT REFERENCES
   // ====================================
