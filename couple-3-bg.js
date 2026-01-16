@@ -54,7 +54,7 @@ console.log("AB Web Dev");
     // GSAP struggles with HSLA strings, so we convert to hex
     let currentColors = {
       base: "#3b3b3b", // Equivalent to hsla(0, 0%, 20%, 1.00)
-      hover: "#545454", // Equivalent to hsla(0, 0%, 28%, 1.00)
+      hover: "#606060", // Equivalent to hsla(0, 0%, 28%, 1.00)
       background:"#00000000", // null = transparent, set to color string to show background
     };
 
