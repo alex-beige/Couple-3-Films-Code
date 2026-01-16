@@ -243,7 +243,28 @@ function moveIndicator(link) {
   footerIndicator.style.transform = `translateX(${targetX}px)`;
   footerIndicator.style.opacity = '1';
 }
+var $projectPageHero = $('.standard-section[project-type]');
 
+if ($projectPageHero.length) {
+    var projectPageType = $projectPageHero.attr('project-type');
+    console.log('Project type:', projectPageType);
+    
+    // Find nav links whose text contains the project type (case-insensitive)
+    var $activePage = $(navLinks).filter(function() {
+        var linkText = $(this).text().trim().toLowerCase();
+        var searchTerm = projectPageType.trim().toLowerCase();
+        return linkText.indexOf(searchTerm) !== -1;
+    }).first();
+    
+    console.log('Found active page:', $activePage.length);
+    
+    // Call moveIndicator if we found a matching link
+    if ($activePage.length) {
+        moveIndicator($activePage[0]);
+    } else {
+        console.log('No matching nav link found');
+    }
+}
 const currentLink = document.querySelector('.footer_link.w--current');
 if (currentLink) {
   moveIndicator(currentLink);
