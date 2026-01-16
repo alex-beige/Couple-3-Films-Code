@@ -255,7 +255,7 @@ console.log("AB Web Dev");
 
 
  
-  $('.media-wrapper').each(function() {
+  $('.media-wrapper:not([no-hover])').each(function() {
     const $wrapper = $(this);
     const $iframe = $wrapper.find('.vimeo-embed');
     const player = new Vimeo.Player($iframe[0]);
