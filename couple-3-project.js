@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
   };
 
   //elements.frame = elements.introContainer.querySelector(".hero-framing-wrap");
-  elements.heroText = elements.introContainer.querySelector("h1");
+  elements.heroText = elements.introContainer.querySelectorAll("h1,.project_client-name");
   elements.introElements = elements.introContainer.querySelectorAll("[gsap-intro-el]");
     // Split text into words for stagger animation
   const split_h1 = new SplitText(elements.heroText, { type: "words" }),
