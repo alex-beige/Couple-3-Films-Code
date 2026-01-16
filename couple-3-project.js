@@ -12,7 +12,27 @@ document.addEventListener("DOMContentLoaded", function () {
   const elements = {
     introContainer: document.querySelector(".standard-section:has(h1)"),
   };
-
+//project pages - wrap role labels
+$('.rich-text-roles p').each(function() {
+    var $paragraph = $(this);
+    var text = $paragraph.html();
+    
+    // Check if there's a colon in the paragraph
+    if (text.indexOf(':') !== -1) {
+        // Find the first colon position
+        var colonIndex = text.indexOf(':') + 1;
+        
+        // Split into label (before colon) and rest (colon + after)
+        var label = text.substring(0, colonIndex);
+        var rest = text.substring(colonIndex);
+        
+        // Reconstruct with wrapped label
+        var newHTML = '<span class="roles-label">' + label + '</span>' + rest;
+        
+        // Update the paragraph
+        $paragraph.html(newHTML);
+    }
+});
   //elements.frame = elements.introContainer.querySelector(".hero-framing-wrap");
   elements.heroText = elements.introContainer.querySelectorAll("h1,.project_client-name");
   elements.introElements = elements.introContainer.querySelectorAll("[gsap-intro-el]");
@@ -203,48 +223,7 @@ ctaButton.addEventListener('mouseleave', () => {
   }
 });
 
-//project pages - wrap role labels
-$('.rich-text-roles p').each(function() {
-    var $paragraph = $(this);
-    var text = $paragraph.html();
-    
-    // Check if there's a colon in the paragraph
-    if (text.indexOf(':') !== -1) {
-        // Find the first colon position
-        var colonIndex = text.indexOf(':') + 1;
-        
-        // Split into label (before colon) and rest (colon + after)
-        var label = text.substring(0, colonIndex);
-        var rest = text.substring(colonIndex);
-        
-        // Reconstruct with wrapped label
-        var newHTML = '<span class="roles-label">' + label + '</span>' + rest;
-        
-        // Update the paragraph
-        $paragraph.html(newHTML);
-    }
-});
 
-//project pages - set alt text as caption for recognition logos
-$('.carousel_item-logo.is-project.page').each(function() {
-    var $carouselItem = $(this);
-    
-    // Find the image and caption within this carousel item
-    var $img = $carouselItem.find('.carousel-img');
-    var $caption = $carouselItem.find('.recogniton-caption');
-    
-    // Get the alt text from the image
-    var altText = $img.attr('alt');
-    
-    // Check if alt text exists and is not empty
-    if (altText && altText.trim() !== '') {
-        // Update caption text and ensure it's visible
-        $caption.text(altText).show();
-    } else {
-        // Hide the caption if alt text is empty
-        $caption.hide();
-    }
-});
 
 
   //footer nav indicator animation
