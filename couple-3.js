@@ -597,9 +597,7 @@ let masterTimeline;
     //.addLabel('colorChange',"<")
     .to({},{ duration: 0.1 }) // tiny pause to create a gap in the scrub
 
-    })
-  })
-
+   
  const ACTIVE_CLASS = 'is-active';
   
   // Get measurements
@@ -1059,3 +1057,5 @@ navLinks.forEach(link => {
   });
 });
 });
+ })
+  })
