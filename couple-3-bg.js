@@ -64,6 +64,8 @@ console.log("AB Web Dev");
      * Rebuilds the dot grid based on current window size
      * Called on setup and window resize
      */
+    //gsap fade in grid tween
+    let fadeInCanvas;
     function rebuildGrid() {
       const w = p.windowWidth;
       const h = p.windowHeight;
@@ -96,8 +98,7 @@ console.log("AB Web Dev");
       fadeInCanvas.play();
 
     }
-//gsap fade in grid tween
-    let fadeInCanvas;
+
     /**
      * p5.js setup - runs once when sketch starts
      */
