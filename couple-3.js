@@ -284,6 +284,9 @@ let masterTimeline;
   gsap.set(elements.navBrandLinkOriginal, { autoAlpha: 1 });
   gsap.set(elements.navBrandLinkClone, { autoAlpha: 0 });
 
+
+   requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
   // Split text into words for stagger animation
   const split_h1 = new SplitText(elements.heroText, { type: "words" });
 
@@ -388,7 +391,7 @@ let masterTimeline;
     paused:true
 
   });
-
+ console.log('Element position:', elements.brandWrap.getBoundingClientRect());
   tl_intro
     // Fade in brand wrapper
     .from(".brand-anim_outer-ring,.brand-anim_inner-ring", {
@@ -593,7 +596,8 @@ let masterTimeline;
     //.addLabel('colorChange',"<")
     .to({},{ duration: 0.1 }) // tiny pause to create a gap in the scrub
 
-
+    })
+  })
 
  const ACTIVE_CLASS = 'is-active';
   
