@@ -384,7 +384,7 @@ let masterTimeline;
   // INTRO TIMELINE
   // ====================================
   const tl_intro = gsap.timeline({
-    onComplete: enableScrolling,
+    onComplete: enableScrolling,  
     paused:true
 
   });
@@ -393,6 +393,7 @@ let masterTimeline;
     // Fade in brand wrapper
     .from(".brand-anim_outer-ring,.brand-anim_inner-ring", {
       autoAlpha: 0,
+      immediateRender: true,
     })
     // Move brand from center to left
     .from(
@@ -401,6 +402,7 @@ let masterTimeline;
         x: brandCenterX, // Start from center
         ease: "power4.inOut",
         duration: CONFIG.intro.brandMoveDuration,
+        immediateRender: true
       },
       ">-0.25"
     )
@@ -419,6 +421,7 @@ let masterTimeline;
       $(elements.heroText).add(split_h1.words),
       {
         duration: CONFIG.intro.textDuration,
+        immediateRender: true,
         autoAlpha: 0,
         yPercent: CONFIG.intro.textYPercent,
         stagger: CONFIG.intro.textStagger,
@@ -853,24 +856,7 @@ gsap.utils
           },
           "<0.24"
         )
-        // .from(
-        //   gridCells,
-        //   {
-        //     y: "2em",
-        //     autoAlpha: 0,
-        //     stagger: 0.15,
-        //   },
-        //   "<0.4"
-        // )
-        // .from(
-        //   gsapEl,
-        //   {
-        //     y: "24",
-        //     autoAlpha: 0,
-        //     stagger: 0.15,
-        //   },
-        //   "<"
-        // );
+  
     });
 let workSectionsWrapper = document.querySelector('#work-section');
 let tl_workScrolling = gsap.timeline({
