@@ -39,6 +39,8 @@ document.addEventListener("DOMContentLoaded", function () {
     duration: 0.72,
     ease: "power2",
   });
+     requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
     const TIMING = {
       // Letter fade in duration
       letterDuration: 0.4,
@@ -285,8 +287,7 @@ let masterTimeline;
   gsap.set(elements.navBrandLinkClone, { autoAlpha: 0 });
 
 
-   requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
+
   // Split text into words for stagger animation
   const split_h1 = new SplitText(elements.heroText, { type: "words" });
 
