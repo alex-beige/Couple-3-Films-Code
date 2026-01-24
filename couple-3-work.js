@@ -347,8 +347,9 @@ gsap.utils
      items,
       {
         y: 24,
+        duration:0.8,
         autoAlpha: 0,
-        stagger: 0.2,
+        stagger: 0.1,
         ease: "power2",
       },
       "<0.4"
