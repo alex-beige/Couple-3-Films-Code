@@ -31,6 +31,7 @@ if (history.scrollRestoration) {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
+
   // ====================================
   // GSAP SETUP
   // ====================================
@@ -64,6 +65,10 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 gsap.set(".letter:not(#letter-3)",{yPercent:-5})
 gsap.set(".letter#letter-3",{yPercent:5})
+// Create a matchMedia instance
+const mm = gsap.matchMedia();
+
+  
 
 let masterTimeline;
 
@@ -297,12 +302,16 @@ let masterTimeline;
   // Position brand wrapper to the left side initially
   // We'll calculate the exact position so we know where "center" is
   const brandRect = elements.brandWrap.getBoundingClientRect();
-  const brandNaturalCenter = brandRect.left + brandRect.width / 2;
+  const brandNaturalCenterX = brandRect.left + brandRect.width / 2;
+  const brandNaturalCenterY = brandRect.top + brandRect.height / 2;
   const viewportCenterX = window.innerWidth / 2;
+   const viewportCenterY = window.innerHeight / 2;
 
   // Calculate how far from center the brand starts (this becomes our "left" position)
   const brandStartX = 0; // Left position (natural position with no transforms)
-  const brandCenterX = viewportCenterX - brandNaturalCenter; // Centered position
+  const brandCenterX = viewportCenterX - brandNaturalCenterX; // Centered position
+  // Add this after your existing brandCenterX calculation
+const brandCenterY = viewportCenterY - brandNaturalCenterY; // For vertical centering
 
   // Set initial position to the left (no transform)
   //gsap.set(elements.brandWrap, { x: brandStartX });
@@ -384,6 +393,16 @@ let masterTimeline;
     });
   }
 
+mm.add({
+  // Desktop: 768px and above
+  isDesktop: "(min-width: 768px)",
+  // Mobile: 767px and below
+  isMobile: "(max-width: 767px)"
+}, (context) => {
+    // Get the condition that matched
+  let { isDesktop, isMobile } = context.conditions;
+  
+ 
   // ====================================
   // INTRO TIMELINE
   // ====================================
@@ -403,7 +422,9 @@ let masterTimeline;
     .from(
       elements.brandWrap,
       {
-        x: brandCenterX, // Start from center
+         // Use x for desktop, y for mobile
+        x: isDesktop ? brandCenterX : 0,
+        y: isMobile ? brandCenterY : 0,
         ease: "power4.inOut",
         duration: CONFIG.intro.brandMoveDuration,
         immediateRender: true
@@ -519,6 +540,7 @@ let masterTimeline;
       })
     );
   }
+});
 
   // ====================================
   // SCROLL-TRIGGERED HERO ANIMATION

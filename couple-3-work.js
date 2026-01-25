@@ -296,7 +296,7 @@ gsap.to(carousel_lists, {
   };
 
   }
-
+//for news section, kind of
 gsap.utils
     .toArray("section[anim-section]")
     .forEach((group, i) => {
