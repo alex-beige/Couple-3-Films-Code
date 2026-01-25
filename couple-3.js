@@ -601,6 +601,75 @@ const brandCenterY = viewportCenterY - brandNaturalCenterY; // For vertical cent
     //.addLabel('colorChange',"<")
     .to({},{ duration: 0.1 }) // tiny pause to create a gap in the scrub
 
+    
+  // ====================================
+  // INDEPENDENT COLOR CHANGE ANIMATION
+  // ====================================
+  // Separate ScrollTrigger not tied to scrub for discrete color transitions
+  let calloutColorTrigger =
+  ScrollTrigger.create({
+    trigger: '#callout-section',
+    start: "top 180%",
+    //markers: true,
+    end: "top 56%",
+    // This creates a trigger point approximately 70% through the scroll animation
+    onEnter: () => {
+      gsap.to(window.p5DotGrid.colors, {
+        base: "#F2EFED",
+        hover: "#fbfaf9",
+        
+        duration: 0.6,
+        ease: "power2.inOut",
+      });
+      gsap.to('.bg-overlay', {
+        backgroundColor: "#c7c7c7",
+        duration: 0.6,
+        ease: "power2.inOut",
+      });
+    },
+    onLeaveBack: () => {
+      gsap.to(window.p5DotGrid.colors, {
+        base: CONFIG.dotColors.baseDefault,
+        hover: CONFIG.dotColors.hoverDefault,
+        duration: 0.6,
+        ease: "power2.inOut",
+      });
+      gsap.to('.bg-overlay', {
+        backgroundColor: "transparent",
+        duration: 0.6,
+        ease: "power2.inOut",
+      });
+    },
+    onLeave: () => {
+      gsap.to(window.p5DotGrid.colors, {
+        base: CONFIG.dotColors.baseDefault,
+        hover: CONFIG.dotColors.hoverDefault,
+        
+        duration: 0.6,
+        ease: "power2.inOut",
+      });
+      gsap.to('.bg-overlay', {
+        backgroundColor: "transparent",
+        duration: 0.6,
+        ease: "power2.inOut",
+      });
+    },
+    onEnterBack: () => {
+      gsap.to(window.p5DotGrid.colors, {
+        base: "#F2EFED",
+        hover: "#fbfaf9",
+        
+        duration: 0.6,
+        ease: "power2.inOut",
+      });
+      gsap.to('.bg-overlay', {
+        backgroundColor: "#c7c7c7",
+        duration: 0.6,
+        ease: "power2.inOut",
+      });
+    },
+
+  });
    });
  const ACTIVE_CLASS = 'is-active';
   
@@ -713,74 +782,6 @@ ScrollTrigger.config({
   ignoreMobileResize: true
 });
 
-  // ====================================
-  // INDEPENDENT COLOR CHANGE ANIMATION
-  // ====================================
-  // Separate ScrollTrigger not tied to scrub for discrete color transitions
-  let calloutColorTrigger =
-  ScrollTrigger.create({
-    trigger: '#callout-section',
-    start: "top 180%",
-    //markers: true,
-    end: "top 56%",
-    // This creates a trigger point approximately 70% through the scroll animation
-    onEnter: () => {
-      gsap.to(window.p5DotGrid.colors, {
-        base: "#F2EFED",
-        hover: "#fbfaf9",
-        
-        duration: 0.6,
-        ease: "power2.inOut",
-      });
-      gsap.to('.bg-overlay', {
-        backgroundColor: "#c7c7c7",
-        duration: 0.6,
-        ease: "power2.inOut",
-      });
-    },
-    onLeaveBack: () => {
-      gsap.to(window.p5DotGrid.colors, {
-        base: CONFIG.dotColors.baseDefault,
-        hover: CONFIG.dotColors.hoverDefault,
-        duration: 0.6,
-        ease: "power2.inOut",
-      });
-      gsap.to('.bg-overlay', {
-        backgroundColor: "transparent",
-        duration: 0.6,
-        ease: "power2.inOut",
-      });
-    },
-    onLeave: () => {
-      gsap.to(window.p5DotGrid.colors, {
-        base: CONFIG.dotColors.baseDefault,
-        hover: CONFIG.dotColors.hoverDefault,
-        
-        duration: 0.6,
-        ease: "power2.inOut",
-      });
-      gsap.to('.bg-overlay', {
-        backgroundColor: "transparent",
-        duration: 0.6,
-        ease: "power2.inOut",
-      });
-    },
-    onEnterBack: () => {
-      gsap.to(window.p5DotGrid.colors, {
-        base: "#F2EFED",
-        hover: "#fbfaf9",
-        
-        duration: 0.6,
-        ease: "power2.inOut",
-      });
-      gsap.to('.bg-overlay', {
-        backgroundColor: "#c7c7c7",
-        duration: 0.6,
-        ease: "power2.inOut",
-      });
-    },
-
-  });
 
   //callout section animation
   let calloutSection = document.querySelector('#callout-section'),
