@@ -42,6 +42,8 @@ document.addEventListener("DOMContentLoaded", function () {
   });
      requestAnimationFrame(() => {
     requestAnimationFrame(() => {
+
+
     const TIMING = {
       // Letter fade in duration
       letterDuration: 0.4,
@@ -67,7 +69,14 @@ gsap.set(".letter:not(#letter-3)",{yPercent:-5})
 gsap.set(".letter#letter-3",{yPercent:5})
 // Create a matchMedia instance
 const mm = gsap.matchMedia();
-
+mm.add({
+  // Desktop: 768px and above
+  isDesktop: "(min-width: 768px)",
+  // Mobile: 767px and below
+  isMobile: "(max-width: 767px)"
+}, (context) => {
+    // Get the condition that matched
+  let { isDesktop, isMobile } = context.conditions;
   
 
 let masterTimeline;
@@ -393,14 +402,7 @@ const brandCenterY = viewportCenterY - brandNaturalCenterY; // For vertical cent
     });
   }
 
-mm.add({
-  // Desktop: 768px and above
-  isDesktop: "(min-width: 768px)",
-  // Mobile: 767px and below
-  isMobile: "(max-width: 767px)"
-}, (context) => {
-    // Get the condition that matched
-  let { isDesktop, isMobile } = context.conditions;
+
   
  
   // ====================================
