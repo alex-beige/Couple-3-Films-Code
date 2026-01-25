@@ -540,7 +540,7 @@ mm.add({
       })
     );
   }
-});
+
 
   // ====================================
   // SCROLL-TRIGGERED HERO ANIMATION
@@ -586,7 +586,8 @@ mm.add({
     // Animate from left (x: 0) back to center (x: brandCenterX)
     .to(".hero_brand-anim-wrap-parent", {
       //invalidateOnRefresh: true,
-      x: brandCenterX,
+         x: isDesktop ? brandCenterX : 0,
+        y: isMobile ? brandCenterY : 0,
       immediateRender: false,
       ease: "power2.inOut",
       duration:0.6
@@ -619,7 +620,7 @@ mm.add({
     //.addLabel('colorChange',"<")
     .to({},{ duration: 0.1 }) // tiny pause to create a gap in the scrub
 
-   
+   });
  const ACTIVE_CLASS = 'is-active';
   
   // Get measurements
