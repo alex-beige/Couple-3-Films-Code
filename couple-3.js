@@ -671,6 +671,42 @@ const brandCenterY = viewportCenterY - brandNaturalCenterY; // For vertical cent
 
   });
    });
+
+   
+  //callout section animation
+  let calloutSection = document.querySelector('#callout-section'),
+  calloutWrapper = calloutSection.querySelector('.container'),
+  calloutTitle = calloutSection.querySelector('#callout-header'),
+  calloutButton = calloutSection.querySelector('.button');
+
+  let tl_calloutSection = gsap.timeline({
+    scrollTrigger: {
+      trigger: '#callout-section',
+      start: "top 52%",
+      end:"bottom 48%",
+      //markers: true,
+      //toggleActions: "play none none none",
+      scrub:1
+    }
+  });
+
+  // Create SplitText with autoSplit and animations in onSplit callback
+  let calloutSplit = new SplitText(calloutTitle, {
+    type: "lines,words",
+    autoSplit: true,
+    onSplit: (self) => {
+      // Clear and rebuild the timeline with the freshly-split elements
+      tl_calloutSection.clear();
+
+      tl_calloutSection
+        .fromTo(calloutWrapper, {yPercent:-13}, {yPercent:12, duration:1.6, ease:"power1.inOut"})
+        .from(self.lines, {yPercent:32, autoAlpha:0, stagger:0.12}, "<")
+        .from(self.words, {color:"#333333", autoAlpha:0, stagger:{amount:0.5}}, "<")
+        .fromTo(calloutButton, {y:-28, autoAlpha:0},{y:0, autoAlpha:1, duration:0.6, ease:"power2.out"}, ">-0.6");
+    }
+  });
+
+  
  const ACTIVE_CLASS = 'is-active';
   
   // Get measurements
@@ -782,39 +818,6 @@ ScrollTrigger.config({
   ignoreMobileResize: true
 });
 
-
-  //callout section animation
-  let calloutSection = document.querySelector('#callout-section'),
-  calloutWrapper = calloutSection.querySelector('.container'),
-  calloutTitle = calloutSection.querySelector('#callout-header'),
-  calloutButton = calloutSection.querySelector('.button');
-
-  let tl_calloutSection = gsap.timeline({
-    scrollTrigger: {
-      trigger: '#callout-section',
-      start: "top 52%",
-      end:"bottom 48%",
-      //markers: true,
-      //toggleActions: "play none none none",
-      scrub:1
-    }
-  });
-
-  // Create SplitText with autoSplit and animations in onSplit callback
-  let calloutSplit = new SplitText(calloutTitle, {
-    type: "lines,words",
-    autoSplit: true,
-    onSplit: (self) => {
-      // Clear and rebuild the timeline with the freshly-split elements
-      tl_calloutSection.clear();
-
-      tl_calloutSection
-        .fromTo(calloutWrapper, {yPercent:-13}, {yPercent:12, duration:1.6, ease:"power1.inOut"})
-        .from(self.lines, {yPercent:32, autoAlpha:0, stagger:0.12}, "<")
-        .from(self.words, {color:"#333333", autoAlpha:0, stagger:{amount:0.5}}, "<")
-        .fromTo(calloutButton, {y:-28, autoAlpha:0},{y:0, autoAlpha:1, duration:0.6, ease:"power2.out"}, ">-0.6");
-    }
-  });
 
 
   //tl_heroScroll.add(calloutColorTrigger, "colorChange=-0.3");
