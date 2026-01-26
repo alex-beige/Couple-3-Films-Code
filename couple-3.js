@@ -708,19 +708,19 @@ const brandCenterY = viewportCenterY - brandNaturalCenterY; // For vertical cent
 
 
  const ACTIVE_CLASS = 'is-active';
-  
+
   // Get measurements
   const verticalNavIndicator = document.querySelector('.vertical-active-indicator');
   const workCategoryNav = document.querySelector('.work_category-nav');
   const workCategoryNavHeight = workCategoryNav.offsetHeight * 0.667;
-  
-  // Create ScrollTrigger for each section
+
+  // Store nav data for use in timeline callbacks
+  const workCategoryData = [];
   $('.work-category-wrapper').each(function(index) {
     const section = this;
     const sectionId = section.id;
     const $matchingNav = $(`.work_category-item[data-category="${sectionId}"]`);
-    
-    // Calculate footerIndicator position (0 for first, workCategoryNavHeight/2 for middle, full for last)
+
     let indicatorY;
     if (index === 0) {
       indicatorY = 0;
@@ -729,31 +729,28 @@ const brandCenterY = viewportCenterY - brandNaturalCenterY; // For vertical cent
     } else {
       indicatorY = workCategoryNavHeight;
     }
-    
-    ScrollTrigger.create({
-      trigger: section,
-      start: "top 54%",
-      end: "bottom 54%",
-      onEnter: () => {
-        $('.work_category-item').removeClass(ACTIVE_CLASS);
-        $matchingNav.addClass(ACTIVE_CLASS);
-        gsap.to(verticalNavIndicator, {
-          y: indicatorY,
-          duration: 0.6,
-          ease: "power2.inOut"
-        });
-      },
-      onEnterBack: () => {
-        $('.work_category-item').removeClass(ACTIVE_CLASS);
-        $matchingNav.addClass(ACTIVE_CLASS);
-        gsap.to(verticalNavIndicator, {
-          y: indicatorY,
-          duration: 0.6,
-          ease: "power2.inOut"
-        });
-      }
+
+    workCategoryData.push({
+      section,
+      sectionId,
+      $matchingNav,
+      indicatorY
     });
   });
+
+  // Helper function to activate a category
+  function activateCategory(index) {
+    const data = workCategoryData[index];
+    if (!data) return;
+
+    $('.work_category-item').removeClass(ACTIVE_CLASS);
+    data.$matchingNav.addClass(ACTIVE_CLASS);
+    gsap.to(verticalNavIndicator, {
+      y: data.indicatorY,
+      duration: 0.6,
+      ease: "power2.inOut"
+    });
+  }
 
 gsap.utils
     .toArray("section[anim-section]")
@@ -804,6 +801,8 @@ gsap.utils
   
     });
 let workSectionsWrapper = document.querySelector('#work-section');
+let currentActiveCategory = 0; // Track current active to avoid redundant updates
+
 let tl_workScrolling = gsap.timeline({
   scrollTrigger: {
     trigger: workSectionsWrapper,
@@ -811,7 +810,23 @@ let tl_workScrolling = gsap.timeline({
     end:"+=140%",
     scrub:1.4,
     pin:true,
-    invalidateOnRefresh: true
+    invalidateOnRefresh: true,
+    onUpdate: (self) => {
+      // Calculate which category should be active based on scroll progress
+      const progress = self.progress;
+      const numCategories = workCategoryData.length;
+
+      // Map progress to category index
+      // First category: 0-33%, Second: 33-66%, Third: 66-100%
+      let activeIndex = Math.floor(progress * numCategories);
+      activeIndex = Math.min(activeIndex, numCategories - 1); // Clamp to max index
+
+      // Only update if category changed
+      if (activeIndex !== currentActiveCategory) {
+        currentActiveCategory = activeIndex;
+        activateCategory(activeIndex);
+      }
+    }
   }
 }),
   workGrid = workSectionsWrapper.querySelector('#work-grid'),
