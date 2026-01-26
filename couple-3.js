@@ -670,10 +670,7 @@ const brandCenterY = viewportCenterY - brandNaturalCenterY; // For vertical cent
     },
 
   });
-   return () => {
-    tl_intro.kill();
-  };
-   });
+   
 
    
   //callout section animation
@@ -756,74 +753,7 @@ const brandCenterY = viewportCenterY - brandNaturalCenterY; // For vertical cent
         });
       }
     });
-  });
-  
-  // Custom easing for smooth scroll
-  $.easing.easeInOutQuart = function(x) {
-    return x < 0.5 ? 8 * x * x * x * x : 1 - Math.pow(-2 * x + 2, 4) / 2;
-  };
-  
-  // Smooth scroll on nav click
-  $('.work_category-item').on('click', function(e) {
-    e.preventDefault();
-    const targetId = $(this).attr('data-category');
-    const targetSection = $(`#${targetId}`);
     
-    if (targetSection.length) {
-      $('html, body').animate({
-        scrollTop: targetSection.offset().top - 132
-      }, 1000, 'easeInOutQuart');
-    }
-  });
-      
- 
-  // lenis snippet
-if (typeof Lenis === 'undefined' || typeof gsap === 'undefined') {
-  console.error('Required libraries not loaded');
-  return;
-}
-
-const MOBILE_BREAKPOINT = 479;
-const isDesktop = window.matchMedia(`(min-width: ${MOBILE_BREAKPOINT}px)`).matches;
-
-if (isDesktop) {
-  // Initialize Lenis with optimized settings
-  const lenis = new Lenis({
-    duration: 1.2,
-    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-    orientation: 'vertical',
-    gestureOrientation: 'vertical',
-    smoothWheel: true,
-    wheelMultiplier: 1,
-    smoothTouch: false,
-    infinite: false,
-  });
-
-  // Sync with ScrollTrigger
-  lenis.on('scroll', ScrollTrigger.update);
-
-  // Use requestAnimationFrame for better performance
-  gsap.ticker.add((time) => {
-    lenis.raf(time * 1000);
-  });
-
-  // Prevent memory leaks - cleanup on page unload
-  window.addEventListener('beforeunload', () => {
-    lenis.destroy();
-  });
-  
-} else {
-  console.log('Mobile view detected - smooth scroll disabled');
-}
-
-// Configure ScrollTrigger
-ScrollTrigger.config({
-  ignoreMobileResize: true
-});
-
-
-
-  //tl_heroScroll.add(calloutColorTrigger, "colorChange=-0.3");
 gsap.utils
     .toArray("section[anim-section]")
     .forEach((group, i) => {
@@ -932,46 +862,78 @@ workGridCells.forEach((cell, index) => {
     ease: "power2.out"
   }, timelinePosition);
 });
-/*    
-gsap.utils
-    .toArray(".work-category-wrapper")
-    .forEach((group, i) => {
-      // let badgeEl = group.querySelectorAll(".icon-small"),
-      //   badgeText = group.querySelectorAll(".badge_text"),
-        
-        let gridCells = group.querySelectorAll(".work_cms-item,.work_cta-wrap"),
-        gsapEl = group.querySelector("[gsap-el]");
-        //sectionBG = group.querySelector(".section-background-img");
+  });
+  
+  // Custom easing for smooth scroll
+  $.easing.easeInOutQuart = function(x) {
+    return x < 0.5 ? 8 * x * x * x * x : 1 - Math.pow(-2 * x + 2, 4) / 2;
+  };
+  
+  // Smooth scroll on nav click
+  $('.work_category-item').on('click', function(e) {
+    e.preventDefault();
+    const targetId = $(this).attr('data-category');
+    const targetSection = $(`#${targetId}`);
+    
+    if (targetSection.length) {
+      $('html, body').animate({
+        scrollTop: targetSection.offset().top - 132
+      }, 1000, 'easeInOutQuart');
+    }
+  });
+      
+ return () => {
+    tl_intro.kill();
+    tl_heroScroll.kill();
+    
+  };
+   });
+  // lenis snippet
+if (typeof Lenis === 'undefined' || typeof gsap === 'undefined') {
+  console.error('Required libraries not loaded');
+  return;
+}
 
-      let tl_group = gsap.timeline({
-        scrollTrigger: {
-          trigger: group,
-          toggleActions: "play none none reverse",
-          start: "top 64%",
-        },
-      });
+const MOBILE_BREAKPOINT = 479;
+const isDesktop = window.matchMedia(`(min-width: ${MOBILE_BREAKPOINT}px)`).matches;
 
-      tl_group.from(
-          gridCells,
-          {
-            y: "2em",
-            duration:1,
-            autoAlpha: 0,
-            ease: "power3.out",
-            stagger: 0.08,
-          }
-        )
-        .from(
-          gsapEl,
-          {
-            y: "24",
-            autoAlpha: 0,
-            stagger: 0.1,
-          },
-          "<"
-        );
-    })
-*/
+if (isDesktop) {
+  // Initialize Lenis with optimized settings
+  const lenis = new Lenis({
+    duration: 1.2,
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    orientation: 'vertical',
+    gestureOrientation: 'vertical',
+    smoothWheel: true,
+    wheelMultiplier: 1,
+    smoothTouch: false,
+    infinite: false,
+  });
+
+  // Sync with ScrollTrigger
+  lenis.on('scroll', ScrollTrigger.update);
+
+  // Use requestAnimationFrame for better performance
+  gsap.ticker.add((time) => {
+    lenis.raf(time * 1000);
+  });
+
+  // Prevent memory leaks - cleanup on page unload
+  window.addEventListener('beforeunload', () => {
+    lenis.destroy();
+  });
+  
+} else {
+  console.log('Mobile view detected - smooth scroll disabled');
+}
+
+// Configure ScrollTrigger
+ScrollTrigger.config({
+  ignoreMobileResize: true
+});
+
+
+
   let tl_ctaAnimation = gsap.timeline({
     scrollTrigger: {
       trigger: '#cta-section',
