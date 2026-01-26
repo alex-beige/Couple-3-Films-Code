@@ -885,6 +885,9 @@ workGridCells.forEach((cell, index) => {
  return () => {
     tl_intro.kill();
     tl_heroScroll.kill();
+    tl_workScrolling.kill()
+
+
     
   };
    });

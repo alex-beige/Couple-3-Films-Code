@@ -266,11 +266,11 @@ console.log("AB Web Dev");
     
     $wrapper.on('mouseenter', function() {
       player.play();
-console.log('play!!')
+//console.log('play!!')
     });
     
     $wrapper.on('mouseleave', function() {
       player.pause();
-console.log('pause.')
+//console.log('pause.')
     });
   });
