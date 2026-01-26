@@ -670,6 +670,9 @@ const brandCenterY = viewportCenterY - brandNaturalCenterY; // For vertical cent
     },
 
   });
+   return () => {
+    tl_intro.kill();
+  };
    });
 
    
@@ -706,7 +709,7 @@ const brandCenterY = viewportCenterY - brandNaturalCenterY; // For vertical cent
     }
   });
 
-  
+
  const ACTIVE_CLASS = 'is-active';
   
   // Get measurements
