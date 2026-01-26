@@ -807,7 +807,7 @@ let workSectionsWrapper = document.querySelector('#work-section');
 let tl_workScrolling = gsap.timeline({
   scrollTrigger: {
     trigger: workSectionsWrapper,
-    start: "top top",clause 
+    start: "top top",
     end:"+=140%",
     scrub:1.4,
     pin:true,
