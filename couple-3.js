@@ -753,7 +753,8 @@ const brandCenterY = viewportCenterY - brandNaturalCenterY; // For vertical cent
         });
       }
     });
-    
+  });
+
 gsap.utils
     .toArray("section[anim-section]")
     .forEach((group, i) => {
@@ -806,7 +807,7 @@ let workSectionsWrapper = document.querySelector('#work-section');
 let tl_workScrolling = gsap.timeline({
   scrollTrigger: {
     trigger: workSectionsWrapper,
-    start: "top top",
+    start: "top top",clause 
     end:"+=140%",
     scrub:1.4,
     pin:true,
@@ -862,8 +863,7 @@ workGridCells.forEach((cell, index) => {
     ease: "power2.out"
   }, timelinePosition);
 });
-  });
-  
+
   // Custom easing for smooth scroll
   $.easing.easeInOutQuart = function(x) {
     return x < 0.5 ? 8 * x * x * x * x : 1 - Math.pow(-2 * x + 2, 4) / 2;
