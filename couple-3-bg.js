@@ -55,7 +55,7 @@ console.log("AB Web Dev");
     let currentColors = {
       base: "#3b3b3b", // Equivalent to hsla(0, 0%, 20%, 1.00)
       hover: "#606060", // Equivalent to hsla(0, 0%, 28%, 1.00)
-      background:"null", // null = transparent, set to color string to show background
+      background:"00000000", // null = transparent, set to color string to show background
     };
 
 
