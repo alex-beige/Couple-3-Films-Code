@@ -120,7 +120,7 @@ ScrollTrigger.config({
 
 const carousel_lists = gsap.utils.toArray('.carousel-wrap');
 let carousel_length = document.querySelectorAll('.carousel_item-logo').length;
-const carousel_duration = carousel_length * 3.8; // adjust speed
+const carousel_duration = carousel_length * 3; // adjust speed
 
 // Set second list immediately after first
 //gsap.set(carousel_lists[1], { xPercent: 100 });
